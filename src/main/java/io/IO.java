@@ -1,4 +1,4 @@
-package io;
+/*package io;
 
 import fpinjava.*;
 import inout.Console;
@@ -226,11 +226,11 @@ public abstract class IO<A> {
  static <A,B> IO<B> foldr(Function<IO<A>, Function<IO<B>, IO<B>>> f, IO<B> s, Stream<IO<A>> xs) {
   	return xs.isEmpty() ? s
   			                : f.apply(xs.head().fst).apply(foldr(f, s, xs.tail()));
-  }
+  }*/
 
   /************************ Input Functions *******************************/
 
-  public static Input stdin(){
+  /*public static Input stdin(){
     return Console.stdin();
   }
 
@@ -267,9 +267,9 @@ public abstract class IO<A> {
   public static IO<Stream<String>> getLines(){
     return hGetLines(stdin());
   }
-
+*/
   /************************* Output Functions ******************************/
-
+/*
   public static Output stdout(){
     return Console.stdout();
   }
@@ -318,9 +318,9 @@ public abstract class IO<A> {
   public static IO<Stream<Nothing>> putStrLns(Stream<String> ss){
     return hPutStrLns(stdout(),ss);
   }
-
+*/
   /*********************** InputOutput Functions *****************************/
-
+/*
   public static IO<String> hPromptLine(Output out, Input in, String req) {
     return hPutStrLn(out,req).append(hGetLine(in)); // nicht getestet
   }
@@ -487,3 +487,4 @@ public abstract class IO<A> {
     }
   }
 }
+*/
