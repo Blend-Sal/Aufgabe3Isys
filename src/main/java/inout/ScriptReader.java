@@ -28,9 +28,8 @@ public class ScriptReader implements Input {
         try {
             return commands.isEmpty() ? Result.failure("Not enough Entries")
                     : Integer.parseInt(commands.headOption().getOrElse("")) >= 0
-                    || Integer.parseInt(commands.headOption().getOrElse("")) < 0
-                    ? Result.success(new Tuple<>(Integer.parseInt(commands.headOption()
-                    .getOrElse("")), new ScriptReader(String.valueOf(commands.drop(1))))) : Result.empty();
+                        ? Result.success(new Tuple<>(Integer.parseInt(commands.headOption()
+                         .getOrElse("")), new ScriptReader(String.valueOf(commands.drop(1))))) : Result.empty();
         } catch (Exception e) {
             return Result.failure(e);
         }

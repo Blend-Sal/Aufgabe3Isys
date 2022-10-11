@@ -31,8 +31,8 @@ public class Input2Output implements Runnable, Input, Output {
     @Override
     public void run() {
         System.out.println("Waiting for Input...");
-        input.readLines().forEach(output::printLine);
-        shutdownInput();
+        input.readLines().forEach(output::printLine); // das hört nie auf.
+        shutdownInput(); // die beiden werden nicht erreicht
         shutdownOutput();
     }
 
@@ -40,8 +40,8 @@ public class Input2Output implements Runnable, Input, Output {
         ConsoleReader cReader = stdin();
         ConsoleWriter cWriter = stdout();
         Runnable i2o = input2output(cReader, cWriter);
-        i2o.run();
         System.out.println("now running");
+        i2o.run();
     }
 
 
@@ -62,6 +62,6 @@ public class Input2Output implements Runnable, Input, Output {
 
     @Override
     public void shutdownOutput() {
-        output.shutdownOutput();
+
     }
 }

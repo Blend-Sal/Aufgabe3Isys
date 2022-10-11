@@ -16,7 +16,7 @@ public class ScriptWriter implements Output{
 
     @Override
     public void print(String s) {
-        out = append(out, list(s));
+        out = out.cons(s);
     }
 
     public List<String> toList() {

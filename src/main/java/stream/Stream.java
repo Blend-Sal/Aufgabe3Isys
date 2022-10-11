@@ -1,10 +1,8 @@
 package stream;
 
-import fpinjava.Effect;
-import fpinjava.Function;
-import fpinjava.Result;
-import fpinjava.Supplier;
+import fpinjava.*;
 import inout.Input;
+import list.List;
 import tuple.Tuple;
 
 
@@ -85,6 +83,16 @@ public abstract class Stream<A> {
             ef.apply(head());
             tail().forEach(ef);
         }
+
+       /* public void forEach(Effect<A> ef) {
+            forEach(this, ef).eval();
+        }
+
+        private static <A> TailCall<List<A>> forEach(List<A> list, Effect<A> ef) {
+            return list.isEmpty() ? TailCall.ret(list) : TailCall.sus(() -> {
+                ef.apply(list.head());
+                return forEach(list.tail(), ef);
+            }); }*/
 
 
         @SuppressWarnings("unchecked")

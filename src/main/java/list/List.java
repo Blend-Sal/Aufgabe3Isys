@@ -256,14 +256,6 @@ public abstract class List<A> {
     }
 
 
-
-
-
-    // 1.4-d
-    // -foldl ist tail-rekursiv, d.h. dass das Endergebnis des rekursiven Aufrufs
-    // dem Endergebnis der Funktion selbst entspricht
-    // und mit dem kann man stack overflow vermeiden,
-
     @SuppressWarnings("rawtypes")
     public static final List NIL = new Nil();
 
