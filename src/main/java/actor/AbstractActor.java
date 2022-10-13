@@ -13,8 +13,8 @@ public abstract class AbstractActor<T> implements Actor<T> {
         super();
         this.id = id;
         this.executor = type == Type.SERIAL
-                ? Executors.newSingleThreadExecutor(new DaemonThreadFactory())
-                : Executors.newCachedThreadPool(new DaemonThreadFactory());
+                ? Executors.newSingleThreadExecutor(new DaemonThreadFactory()) //ThreadChange
+                : Executors.newCachedThreadPool(new DaemonThreadFactory()); //ThreadChange
         this.context = new ActorContext<T>() {
             private MessageProcessor<T> behavior =
                     AbstractActor.this::onReceive;

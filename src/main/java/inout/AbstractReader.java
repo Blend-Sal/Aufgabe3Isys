@@ -24,19 +24,6 @@ public class AbstractReader implements Input {
         }
     }
 
-
-    @Override
-    public Result<Tuple<Integer, Input>> readInt() {
-        try {
-            String s = reader.readLine();
-            return s == null
-                    ? Result.empty()
-                    : Result.success(new Tuple<>(Integer.parseInt(s), this));
-        } catch (Exception e) {
-            return Result.failure(e);
-        }
-    }
-
     @Override
     public void shutdownInput() {
 

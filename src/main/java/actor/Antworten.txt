@@ -1,0 +1,63 @@
+Wozu dient das Schlüsselwort "Synchronized"?
+
+Beim Einsatz des Schlüsselwortes "Synchronized" wird die Anzahl von Anweisungen, die gleichzeitig ausgeführt werden, auf eins limitiert.
+Während eine Anweisung schon in Ausführung ist, kann keine Weitere laufen.
+
+
+Warum ist die "tell" - Methode "synchronized"?
+
+Die "tell" - Methode ist synchronized, sodass nur eine Nachricht auf ein Mal abgeschickt werden kann.
+Das führt dazu, dass die Nachrichten in der richtigen Reihenfolge ausgegeben werden.
+Sonst könnte es dazu kommen, dass statt "Ping, Pong, Ping, Pong" "Pong, Pong, Ping, Ping" ausgegeben wird.
+
+
+Was ist ein ExecutorService?
+
+Ein ExecutorService ist eine API, die zur Vereinfachung der Ausführung von asynchronen Aufgaben dient.
+Das passiert, indem das Interface ExecutorService die synchronisierenden Methoden von der erweiterten Klasse "Executor" einsetzt.
+Das ExecutorService beendet alle seine Aufgaben, nachdem die shutdownNow() Methode aufgerufen wurde.
+
+
+Was ist ein DaemonThread?
+
+Das DaemonThread in Java ist ein Thread mit niedriger Priorität, welches im Hintergrund ausgeführt wird, um Aufgaben wie die Garbage Collection auszuführen.
+DaemonThread in Java ist auch ein Service-Provider-Thread, das Dienste für den UserThread bereitstellt.
+Sein Lebenszyklus hängt von UserThreads ab, d.h. wenn alle UserThreads enden, beendet JVM diesen Thread automatisch.
+
+
+Was ist ein UserThread?
+
+Ein UserThread ist ein Thread mit hoher Priorität, welches im Vordergrund läuft und Operationen ausführt.
+Es bekommt vom DaemonThread Dienste zugewiesen.
+
+
+Haben die Aktoren des Actor-Frameworks eine Message-Queue?
+Wenn ja: Wo ist sie denn?
+
+Die Message - Queue wird abstrahiert. Sie befindet sich in der Klasse Executors, die vom Interface ExecutorService erweitert wird.
+
+
+Was ist ein Semaphor?
+
+Ein Semaphor ist eine Art Variable, welche eingesetzt wird, um die Anzahl von Threads, die auf ein Objekt gleichzeitig zugreifen können, limitiert.
+Diese Variable ändert sich mit ihrem Zustand.
+Nämlich wird sie dekrementiert, wenn ein Thread auf sie zugreift und inkrementiert, wenn die Bearbeitung des Objekts vorbei ist.
+
+
+Warum verwendet das Ping-Pong-Beispiel ein Semaphor?
+
+Das Beispiel verwendet ein Semaphor, um die Anzahl der zugreifenden Threads auf 1 zu verringern.
+Dies führt dazu, das vor der alle Anweisungen ausgeführt werden.
+Ohne des Semaphors würde das Ping-Pong Spiel sofort terminieren.
+
+
+Ohne Semaphor, was können sie beachten? Warum ist das so?
+
+Das Spiel terminiert nach dem ersten Ping.
+Das passiert, weil mehrere Threads auf die Anweisungen zugreifen können und somit die letzte Anweisung zu schnell erreichen.
+
+
+Ping-Pong mit UserThread, warum terminiert das Programm nicht?
+
+Wie schon vorher angewiesen, wird das DaemonThread vom JVM beendet, sobald es keine UserThreads mehr gibt.
+Wenn man aber UserThreads benutzt, wird nichts terminiert, weil es sogenannte "Non-DaemonThreads" im ThreadPool gibt, die ja zur Ausführung von weiteren Anweisungen da sein könnten.

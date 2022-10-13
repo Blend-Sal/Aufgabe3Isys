@@ -61,7 +61,7 @@ public interface Actor<T> {
     static final Semaphore semaphore = new Semaphore(1);
 
     public static void main(String... args) throws InterruptedException {
-       /* Actor<Integer> referee =
+        Actor<Integer> referee =
                 new AbstractActor<Integer>("Referee", Actor.Type.SERIAL) {
                     @Override
                     public void onReceive(Integer message, Result<Actor<Integer>> sender) {
@@ -69,11 +69,13 @@ public interface Actor<T> {
                         semaphore.release();
                     }
                 };
+
+
         Actor<Integer> player1 = new Player("Player1", "Ping", referee);
         Actor<Integer> player2 = new Player("Player2", "Pong", referee);
         semaphore.acquire();
         player1.tell(1, Result.success(player2));
-        semaphore.acquire();*/
+        semaphore.acquire();
 
         Thread.sleep(100);
         Actor<Integer> referee2 =
@@ -91,8 +93,6 @@ public interface Actor<T> {
 
     }
 }
-//Ohne des Semaphors terminiert das Programm entweder sofort, oder nach dem ersten "Ping".
-//Das findet statt, weil die Terminierungsanweisung schon vor den Anderen ausgeführt wird.
 
-//Mit dem UserThread terminiert es nicht, da der ThreadPool immer weiter läuft, wenn er Non-Daemon-Threads erkennt.
+
 
