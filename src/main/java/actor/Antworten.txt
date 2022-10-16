@@ -1,7 +1,8 @@
 Wozu dient das Schlüsselwort "Synchronized"?
 
-Beim Einsatz des Schlüsselwortes "Synchronized" wird die Anzahl von Anweisungen, die gleichzeitig ausgeführt werden, auf eins limitiert.
-Während eine Anweisung schon in Ausführung ist, kann keine Weitere laufen.
+Beim Einsatz des Schlüsselwortes "Synchronized" ist es nicht möglich, dass sich zwei Aufrufe von synchronisierten Methoden für dasselbe Objekt überschneiden.
+Wenn ein Thread eine synchronisierte Methode für ein Objekt ausführt, blockieren alle anderen Threads,
+die synchronisierte Methoden für dasselbe Objekt aufrufen, die Ausführung, bis der erste Thread mit dem Objekt fertig ist.
 
 
 Warum ist die "tell" - Methode "synchronized"?
@@ -51,10 +52,11 @@ Dies führt dazu, das vor der alle Anweisungen ausgeführt werden.
 Ohne des Semaphors würde das Ping-Pong Spiel sofort terminieren.
 
 
-Ohne Semaphor, was können sie beachten? Warum ist das so?
+Ohne Semaphor, was können sie beobachten? Warum ist das so?
 
 Das Spiel terminiert nach dem ersten Ping.
-Das passiert, weil mehrere Threads auf die Anweisungen zugreifen können und somit die letzte Anweisung zu schnell erreichen.
+Das passiert, weil die terminierende Anweisung schon vor den anderen Anweisungen durchgeführt wird.
+Der einzige UserThread terminiert zu schnell.
 
 
 Ping-Pong mit UserThread, warum terminiert das Programm nicht?
