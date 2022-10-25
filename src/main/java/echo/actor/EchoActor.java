@@ -2,28 +2,22 @@ package echo.actor;
 
 import actor.AbstractActor;
 import actor.Actor;
-import actor.MessageProcessor;
 import fpinjava.Result;
-import inout.ConsoleReader;
 
-public class EchoActor<T> extends AbstractActor<T> implements Actor<T> {
+public class EchoActor extends AbstractActor<String> {
 
     public EchoActor(String id, Type type) {
         super(id, type);
+
     }
 
+
+    // empfangene Textnachricht an den Absender zurücksendet.
     @Override
-    public void onReceive(T message, Result<Actor<T>> sender) {
-        //sender.successValue().tell(message, this);
-        sender.forEachOrFail(m -> sender.successValue().tell(message, m));
+    public void onReceive(String message, Result<Actor<String>> sender)
+    {
+        sender.forEach(actor->actor.tell(message,self()));
     }
-
-    public static void main(String[] args) {
-        ConsoleReader cr = ConsoleReader.stdin();
-
-
-    }
-
 }
 
 
