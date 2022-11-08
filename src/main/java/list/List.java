@@ -1,259 +1,82 @@
 package list;
 
+
 import fpinjava.Function;
 import fpinjava.Result;
-import inout.ScriptReader;
+import fpinjava.TailCall;
+//import set.Set;
 
-import java.util.Set;
 
+
+
+import static fpinjava.TailCall.ret;
+import static fpinjava.TailCall.sus;
+//import static set.ListSet.empty;
+//import static set.ListSet.fromList;
 
 public abstract class List<A> {
 
-    // abstract Methods
+    public abstract List<A> reverse();
+
+    public abstract <B> List<B> map(Function<A, B> f);
+
+    public abstract List<A> init();
+
+    public abstract boolean equals(Object o);
+
+    public abstract boolean elem(A x);
+
+    public abstract boolean any(Function<A, Boolean> p);
+
+    //public abstract boolean allMitAnyL(Function<A, Boolean> p, List<A> list);
+
+    public abstract boolean all(Function<A, Boolean> p);
+
+    public abstract List<A> filter(Function<A, Boolean> f);
+
+    public abstract List<A> takeWhile(Function<A, Boolean> p);
+
+    public abstract List<A> dropWhile(Function<A, Boolean> p);
+
+    public abstract List<A> take(int n);
+
+    public abstract List<A> drop(int n);
+
+    public abstract A last();
+
+    public abstract A lastL(List<A> list);
+
+    public abstract A finde(Function<A, Boolean> f);
+
+    public abstract Result<A> find(Function<A, Boolean> f);
+
+    public abstract List<A> delete(A x);
+
     public abstract A head();
 
     public abstract List<A> tail();
 
     public abstract boolean isEmpty();
 
-    public abstract List<A> setHead(A head);
+    public abstract List<A> setHead(A h);
 
-    public abstract List<A> cons(A a);
+    public abstract boolean isEqualTo(List<A> xs);
+
+    public abstract <B> B foldl(Function<B, Function<A, B>> f, B identity);
+
+    abstract <B> B foldr(Function<A, Function<B, B>> f, B identity);
+
+    public List<A> cons(A a) {
+        return new Cons<>(a, this);
+    }
+
+    //public abstract Set<A> toSet();
+
+    //public abstract List<A> nub();
+
+
 
     public abstract int length();
-
-    public abstract boolean elem(A x);
-
-    public abstract boolean any(Function<A, Boolean> p);
-
-    public abstract boolean all(Function<A, Boolean> f);
-
-    public abstract <B> List<B> map(Function<A, B> f);
-
-    public abstract List<A> filter(Function<A, Boolean> f);
-
-    public abstract List<A> init();
-
-    public abstract A last();
-
-    public abstract List<A> take(int n);
-
-    public abstract List<A> drop(int n);
-
-    public abstract List<A> delete(A x);
-
-    public abstract List<A> takeWhile(Function<A, Boolean> p);
-
-    public abstract List<A> dropWhile(Function<A, Boolean> p);
-
-    public abstract A finde(Function<A, Boolean> f);
-
-    public abstract boolean isEqualTo(List<A> list);
-
-    public abstract boolean equals(Object o);
-
-    public abstract Set<A> toSet();
-
-    public abstract List<A> nub();
-
-    public abstract Result<A> headOption();
-
-    public abstract Result<A> find(Function<A,Boolean> p);
-
-    // 1.2
-    // StringBuilder ist mutable, d.h. man kann den Text Content eines Objects,
-    // auch wenn dies im Speicher ist, ändern.
-    // aber String kann das nicht.
-
-    public static Integer sum(List<Integer> list) {
-        return list.isEmpty() ? 0 : list.head() + sum(list.tail());
-    }
-
-    public static Double prod(List<Double> list) {
-        return list.isEmpty() ? 1 : list.head() * prod(list.tail());
-    }
-
-    public static <A> List<A> reverse(List<A> list) {
-        return list.isEmpty() ? list() : append(reverse(list.tail()), list(list.head()));
-    }
-
-    public static boolean and(List<Boolean> list) {
-        return list.isEmpty() ? true : list.head() && and(list.tail());
-    }
-
-    public static boolean or(List<Boolean> list) {
-        return list.isEmpty() ? false : list.head() || or(list.tail());
-    }
-
-    public static Integer minimum(List<Integer> list) {
-        if (list.isEmpty())
-            throw new IllegalStateException("min of empty list");
-        else if (list.length() == 1)
-            return list.head();
-        else
-            return Math.min(list.head(), minimum(list.tail()));
-    }
-
-    public static Integer maximum(List<Integer> list) {
-        if (list.isEmpty())
-            throw new IllegalStateException("max of empty list");
-        else if (list.length() == 1)
-            return list.head();
-        else
-            return Math.max(list.head(), maximum(list.tail()));
-    }
-
-    public static <A> List<A> append(List<A> list1, List<A> list2) {
-        return list1.isEmpty() ? list2 : new Cons<>(list1.head(), append(list1.tail(), list2));
-    }
-
-    public static <A> List<A> concat(List<List<A>> list) {
-        return list.isEmpty() ? list() : append(list.head(), concat(list.tail()));
-    }
-
-    // Rigth fold
-
-    public abstract <B> B foldr(Function<A, Function<B, B>> f, B s);
-
-    public static <A, B> B foldr(Function<A, Function<B, B>> f, B s, List<A> xs) {
-        return xs.isEmpty() ? s : f.apply(xs.head()).apply(foldr(f, s, xs.tail()));
-    }
-
-    public static Integer sumFoldr(List<Integer> list) {
-        return foldr(x -> y -> x + y, 0, list);
-    }
-
-    public static Integer prodFoldr(List<Integer> list) {
-        return foldr(x -> y -> x * y, 1, list);
-    }
-
-    public static <A> Integer lengthFoldr(List<A> list) {
-        return foldr(m -> n -> 1 + n, 0, list);
-    }
-
-    public static <A> boolean elemFoldr(A y, List<A> list) {
-        return foldr(x -> z -> x.equals(y) || z, false, list);
-    }
-
-    public static <A> boolean anyFoldr(Function<A, Boolean> p, List<A> list) {
-        return foldr(x -> y -> p.apply(x) || y, false, list);
-    }
-
-    public static <A> boolean allFoldr(Function<A, Boolean> p, List<A> list) {
-        return foldr(x -> y -> p.apply(x) && y, true, list);
-    }
-
-    public static boolean andFoldr(List<Boolean> list) {
-        return foldr(x -> y -> x && y, true, list);
-    }
-
-    public static boolean orFoldr(List<Boolean> list) {
-        return foldr(x -> y -> x || y, false, list);
-    }
-
-    public static <A> List<A> appendFoldr(List<A> list1, List<A> list2) {
-        return foldr(x -> xs -> new Cons<>(x, xs), list1, list2);
-    }
-
-    public static <A> List<A> concatFoldr(List<List<A>> list) {
-        return foldr(xs -> ys -> append(xs, ys), list(), list);
-    }
-
-    public static <A, B> List<B> mapFoldr(Function<A, B> f, List<A> list) {
-        return foldr(x -> xs -> new Cons<>(f.apply(x), xs), list(), list);
-    }
-
-    public static <A> List<A> filterFoldr(Function<A, Boolean> p, List<A> list) {
-        return foldr(x -> xs -> p.apply(x) ? new Cons<>(x, xs) : xs, list(), list);
-    }
-
-    public static <A> List<A> takeWhileFoldr(Function<A, Boolean> p, List<A> list) {
-        return foldr(x -> xs -> p.apply(x) ? new Cons<>(x, xs) : list(), list(), list);
-    }
-
-    public static <A> String toStringFoldr(List<A> list) {
-        return foldr(x -> xs -> x + ", " + xs, list().toString(), list);
-    }
-
-    public static <A> List<A> reverseFoldr(List<A> list) {
-        return foldr(x -> xs -> append(xs, list(x)), list(), list);
-    }
-
-    // left fold
-    public abstract <B> B foldl(Function<B, Function<A, B>> f, B s);
-
-    public static <A, B> B foldl(Function<B, Function<A, B>> f, B s, List<A> xs) {
-        return xs.isEmpty() ? s : foldl(f, f.apply(s).apply(xs.head()), xs.tail());
-    }
-
-    public static <A> List<A> reverseFoldl(List<A> list) {
-        return foldl(xs -> x -> append(list(x), xs), list(), list);
-    }
-
-    public static Integer sumFoldl(List<Integer> list) {
-        return foldl(x -> y -> x + y, 0, list);
-    }
-
-    public static Integer prodFoldl(List<Integer> list) {
-        return foldl(x -> y -> x * y, 1, list);
-    }
-
-    public static <A> Integer lengthFoldl(List<A> list) {
-        return foldl(n -> m -> 1 + n, 0, list);
-    }
-
-    public static <A> Boolean elemFoldl(A y, List<A> list) {
-        return foldl(z -> x -> x.equals(y) || z, false, list);
-    }
-
-    public static <A> Boolean andFoldl(List<Boolean> list) {
-        return foldl(x -> y -> x && y, true, list);
-    }
-
-    public static <A> Boolean orFoldl(List<Boolean> list) {
-        return foldl(x -> y -> x || y, false, list);
-    }
-
-    public static <A, B> Boolean anyFoldl(Function<A, Boolean> p, List<A> list) {
-        return foldl(x -> y -> p.apply(y) || x, false, list);
-    }
-
-    public static <A, B> Boolean allFoldl(Function<A, Boolean> p, List<A> list) {
-        return foldl(x -> y -> p.apply(y) && x, true, list);
-    }
-
-    public static <A> A lastFoldl(List<A> list) {
-        return foldl(x -> y -> y, null, list);
-    }
-
-    // all with any
-    public static <A> Boolean allWithAny(Function<A, Boolean> p, List<A> list) {
-        return !anyFoldl(x -> !p.apply(x), list);
-    }
-
-    // elem with
-    public static <A> Boolean elemWithAny(A z, List<A> list) {
-        return anyFoldl(x -> x.equals(z), list);
-    }
-
-    // flatMap
-    public static <A, B> List<B> flatMap(Function<A, List<B>> f, List<A> list) {
-        return foldr(xs -> ys -> append(f.apply(xs), ys), list(), list);
-    }
-
-    public static List<Integer> range(int start, int end) {
-        return start > end ? list() : new Cons<>(start, range(start + 1, end));
-    }
-
-    public static List<String> words(String s) {
-        return list(s.split("\\s+"));
-    }
-
-    // Euler 1
-    public static Integer euler1() {
-        List<Integer> list = range(1, 1000);
-        return sum(list.filter(n -> n % 3 == 0 || n % 5 == 0 && n < 1000));
-    }
 
 
     @SuppressWarnings("rawtypes")
@@ -262,127 +85,153 @@ public abstract class List<A> {
     private List() {
     }
 
-    // the subclass Nil of superclass List
+
+    public abstract Result<A> headOption();
+
+
     private static class Nil<A> extends List<A> {
+
         private Nil() {
+        }
+
+        public String toString() {
+            return "[NIL]";
         }
 
         public int length() {
             return 0;
         }
 
-        public A head() {
-            throw new IllegalStateException("head called on empty list");
+        @Override
+        public <B> B foldl(Function<B, Function<A, B>> f, B identity) {
+            return identity;
         }
 
-        public List<A> tail() {
-            throw new IllegalStateException("tail called on empty list");
+        @Override
+        public <B> B foldr(Function<A, Function<B, B>> f, B identity) {
+            return identity;
         }
 
-        public boolean isEmpty() {
-            return true;
+        //@Override
+        //public Set<A> toSet() { return empty(); }
+
+        //@Override
+        //public List<A> nub() {
+        //    return list();
+        //}
+
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof Nil;
         }
 
-        public List<A> setHead(A head) {
-            throw new IllegalStateException("setting a head on empty list");
-        }
-
-        public List<A> cons(A a) {
-            return new Cons<>(a, this);
-        }
-
+        @Override
         public boolean elem(A x) {
             return false;
-
         }
 
+        @Override
         public boolean any(Function<A, Boolean> p) {
-
             return false;
         }
 
+        @Override
         public boolean all(Function<A, Boolean> p) {
             return true;
         }
 
-        public <B> List<B> map(Function<A, B> f) {
-            return list();
-        }
-
+        /*
+            @Override
+            public boolean allMitAnyL(Function<A, Boolean> p, List<A> list) {
+                return true;
+            }
+        */
+        @Override
         public List<A> filter(Function<A, Boolean> f) {
             return list();
         }
 
-        public List<A> init() {
-            throw new IllegalStateException("init of empty list is undefined");
-        }
-
-        public A last() {
-            throw new IllegalStateException("last called on empty list");
-        }
-
-        public List<A> take(int n) {
-            return list();
-        }
-
-        public List<A> drop(int n) {
-            return list();
-        }
-
+        @Override
         public List<A> takeWhile(Function<A, Boolean> p) {
             return list();
         }
 
+        @Override
         public List<A> dropWhile(Function<A, Boolean> p) {
             return list();
         }
 
+        @Override
+        public List<A> take(int n) {
+            return list();
+        }
+
+        @Override
+        public List<A> drop(int n) {
+            return list();
+        }
+
+        @Override
+        public A last() {
+            throw new IllegalStateException("last called on empty list");
+        }
+
+        @Override
+        public A lastL(List<A> list) {
+            throw new IllegalStateException("last called on empty list");
+        }
+
+        @Override
+        public Result<A> find(Function<A, Boolean> f) {
+            return Result.empty();
+        }
+
+        @Override
         public List<A> delete(A x) {
+            return list();//throw new IllegalStateException("delete called on empty list");
+        }
+
+        @Override
+        public <B> List<B> map(Function<A, B> f) {
             return list();
         }
 
-        public String toString() {
-            return "[]";
-        }
-
-        public A finde(Function<A, Boolean> f) {
-            return null;
-        }
-
-        public boolean isEqualTo(List<A> list) {
-            return list.isEmpty();
-        }
-
-        public <B> B foldr(Function<A, Function<B, B>> f, B s) {
-            return s;
-        }
-
-        public <B> B foldl(Function<B, Function<A, B>> f, B s) {
-            return s;
-        }
-
-        @SuppressWarnings({ "rawtypes" })
         @Override
-        public boolean equals(Object o) {
-            if (o == this) {
-                return true;
-            } else if (o == null || o.getClass() != this.getClass()) {
-                return false;
-            } else {
-                List l = (Nil) o;
-                return this.isEqualTo(l);
-            }
+        public List<A> init() {
+            throw new IllegalStateException("init called on empty list");
         }
 
         @Override
-        public Set<A> toSet() {
-            return null;
-        }
-
-
-        @Override
-        public List<A> nub() {
+        public List<A> reverse() {
             return list();
+        }
+
+        @Override
+        public A finde(Function<A, Boolean> p) {
+            return null;
+        }
+
+        public A head() {
+            throw new IllegalStateException("head called en empty list");
+        }
+
+        public List<A> tail() {
+            throw new IllegalStateException("tail called en empty list");
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return true;
+        }
+
+        @Override
+        public List<A> setHead(A h) {
+            throw new IllegalStateException("setHead called on empty list");
+        }
+
+        @Override
+        public boolean isEqualTo(List<A> xs) {
+            return xs.isEmpty();
         }
 
         @Override
@@ -390,21 +239,206 @@ public abstract class List<A> {
             return Result.empty();
         }
 
-        @Override
-        public Result<A> find(Function<A, Boolean> p) {
-            return Result.empty();
-        }
 
     }
 
-    // the subclass Cons of superclass List
     private static class Cons<A> extends List<A> {
+
         private final A head;
         private final List<A> tail;
 
-        private Cons(A h, List<A> t) {
-            head = h;
-            tail = t;
+        private Cons(A head, List<A> tail) {
+            this.head = head;
+            this.tail = tail;
+        }
+
+        public String toString() {
+            return String.format("[%sNIL]",
+                    toString(new StringBuilder(), this).eval());
+        }
+
+        private TailCall<StringBuilder> toString(StringBuilder acc, List<A> list) {
+            return list.isEmpty()
+                    ? ret(acc)
+                    : sus(() -> toString(acc.append(list.head()).append(", "),
+                    list.tail()));
+        }
+        /*
+                private TailCall<StringBuilder> toStringR(StringBuilder acc, List<A> list) {
+                    return list.isEmpty()
+                            ? ret(acc)
+                            : sus(() -> toString(acc.append(list.head()).append(", "),
+                            list.tail()));
+                } //Noch nicht implementiert
+        */
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof Cons && isEqualTo((List<A>) o);
+        }
+
+        @Override
+        public int length() {
+            return 1 + tail().length();
+        }
+
+        @Override
+        public boolean elem(A x) {
+            return x.equals(this.head()) || this.tail().elem(x);        //Fehlerhaft
+        }
+
+        @Override
+        public boolean any(Function<A, Boolean> p) {
+            return p.apply(this.head()) || this.tail().any(p);
+        }
+
+        /*
+              @Override
+              public boolean allMitAnyL(Function<A, Boolean> p, List<A> list) {
+                  return anyL(x -> !p.apply(x), list);
+              }
+        */
+        @Override
+        public boolean all(Function<A, Boolean> p) {
+            return p.apply(head()) && this.tail().all(p);
+        }
+
+        @Override
+        public List<A> filter(Function<A, Boolean> f) {
+            return f.apply(head()) ? new Cons<>(head(), tail().filter(f)) : tail().filter(f);
+        }
+
+        @Override
+        public List<A> takeWhile(Function<A, Boolean> p) {
+            return p.apply(head()) ? new Cons<>(head(), tail().takeWhile(p)) : list();
+        }
+
+        /*
+        public List<A> takeWhile(Function<A, Boolean> f) {
+            return takeWhile_(this, f).eval();   // Fehlerhaft
+        }
+
+        private TailCall<List<A>> takeWhile_(List<A> list, Function<A, Boolean> f) {
+            return !list.isEmpty() && f.apply(list.head())
+                    ? sus(() -> takeWhile_(list.tail(), f))
+                    : ret(list);
+        }
+  */
+        @Override
+        public List<A> dropWhile(Function<A, Boolean> f) {
+            return dropWhile_(this, f).eval();
+        }
+
+        private TailCall<List<A>> dropWhile_(List<A> list, Function<A, Boolean> f) {
+            return !list.isEmpty() && f.apply(list.head())
+                    ? sus(() -> dropWhile_(list.tail(), f))
+                    : ret(list);
+        }
+
+        /*
+              public List<A> take(int n) {
+                  return n <= 0 ? list() : new Cons<>(list.head(), take(n-1, list.tail()));
+              }
+        */
+        @Override
+        public List<A> take(int n) {
+            return n <= 0 ? list() : new Cons<>(head(), tail().take(n - 1));
+        }
+
+        /*
+        public List<A> take(int n) {
+            return n <= 0
+                    ? this
+                    : take_(this, n).eval();
+
+        }
+        private TailCall<List<A>> take_(List<A> list, int n) {
+            return n <= 0 || list.isEmpty()
+                    ? ret(list)
+                    : sus(() -> take_(list.tail(), n - 1));       // Fehlerhaft
+        }
+  */
+
+        @Override
+        public List<A> drop(int n) {
+            return n <= 0
+                    ? this
+                    : drop_(this, n).eval();
+        }
+
+        private TailCall<List<A>> drop_(List<A> list, int n) {
+            return n <= 0 || list.isEmpty()
+                    ? ret(list)
+                    : sus(() -> drop_(list.tail(), n - 1));
+        }
+
+        /*
+                @Override
+                public List<A> drop(int n) {
+                    return n <= 0 ? this: tail().drop(n - 1);
+                }
+        */
+        @Override
+        public A last() {
+            return reverse().tail().head();
+        }
+
+        @Override
+        public A lastL(List<A> list) {
+            return foldl(x -> y -> y, null, this);
+        }
+
+        @Override
+        public Result<A> find(Function<A, Boolean> f) {
+            return filter(f).headOption();
+        }
+        //Result.success(filterR(f).head());
+        //return f.apply(head) ? head : finde(f);
+
+        @Override
+        public List<A> delete(A x) {
+            return x.equals(head()) ? tail() : new Cons<>(head(), tail().delete(x));
+        }
+
+        /*
+        @Override
+        public List<A> delete(A x) {
+            return filter(y -> y.equals(x));
+        }
+*/
+        /*
+        public List<A> delete(A x) {
+            return x.equals(head()) ? tail() : new Cons<>(head(), tail().delete(x));
+        }
+  */
+        @Override
+        public <B> List<B> map(Function<A, B> f) {
+            return new Cons<>(f.apply(head()), this.tail().map(f));
+        }
+
+        public List<A> init() {
+            return reverse().tail().reverse();
+        }
+
+        @Override
+        public List<A> reverse() {
+            return reverse_(list(), this).eval();
+        }
+
+        private TailCall<List<A>> reverse_(List<A> acc, List<A> list) {
+            return list.isEmpty()
+                    ? ret(acc)
+                    : sus(() -> reverse_(new Cons<>(list.head(), acc), list.tail()));
+        }
+
+        @Override
+        public A finde(Function<A, Boolean> p) {
+            return p.apply(head()) ? head() : tail().finde(p);
+        }
+        //!filter(p).isEmpty() ? filter(p).head() : null;
+
+        @Override
+        public Result<A> headOption() {
+            return Result.success(head());
         }
 
         public A head() {
@@ -415,138 +449,43 @@ public abstract class List<A> {
             return tail;
         }
 
+        @Override
         public boolean isEmpty() {
             return false;
         }
 
-        public List<A> setHead(A head) {
-
-            return new Cons<>(head, tail());
-        }
-
-        public List<A> cons(A a) {
-            return new Cons<>(a, this);
-        }
-
-        public int length() {
-            return 1 + tail().length();
-        }
-
-        public boolean elem(A x) {
-
-            return head().equals(x) || tail().elem(x);
-        }
-
-        public String toString() {
-            String res = "";
-            StringBuilder sb = new StringBuilder();
-            res = sb.append(head()).append(", ").append(tail()).toString();
-            return res;
-        }
-
-        public boolean any(Function<A, Boolean> p) {
-
-            return p.apply(head()) || tail().any(p);
-        }
-
-        public boolean all(Function<A, Boolean> p) {
-            return p.apply(head()) && tail().all(p);
-        }
-
-        public <B> List<B> map(Function<A, B> f) {
-            return new Cons<>(f.apply(head()), tail.map(f));
-        }
-
-        public List<A> filter(Function<A, Boolean> f) {
-            return f.apply(head()) ? new Cons<>(head(), tail().filter(f)) : tail().filter(f);
-        }
-
-        public List<A> init() {
-            return length() == 1 ? list() : new Cons<>(head(), tail().init());
-        }
-
-        public A last() {
-            return length() == 1 ? head() : tail().last();
-        }
-
-        public List<A> take(int n) {
-            return n <= 0 ? list() : new Cons<>(head(), tail().take(n - 1));
-        }
-
-        public List<A> drop(int n) {
-            return n <= 0 ? new Cons<>(head(), tail()) : tail().drop(n - 1);
-        }
-
-        public List<A> takeWhile(Function<A, Boolean> p) {
-            return p.apply(head()) ? new Cons<>(head(), tail().takeWhile(p)) : list();
-        }
-
-        public List<A> delete(A x) {
-            return head().equals(x) ? tail() : new Cons<>(head(), tail().delete(x));
-        }
-
-        public List<A> dropWhile(Function<A, Boolean> p) {
-            return p.apply(head()) ? tail().dropWhile(p) : new Cons<>(head(), tail());
-        }
-
-        public A finde(Function<A, Boolean> f) {
-            return f.apply(head()) ? head() : tail().finde(f);
-        }
-
-        public boolean isEqualTo(List<A> list) {
-            return !list.isEmpty() ? list.head().equals(head()) && tail().isEqualTo(list.tail()) : false;
-        }
-
-        public <B> B foldr(Function<A, Function<B, B>> f, B s) {
-            return f.apply(head()).apply(foldr(f, s));
-
-        }
-
-        public <B> B foldl(Function<B, Function<A, B>> f, B s) {
-            return foldl(f, f.apply(s).apply(head()));
-        }
-
-        @SuppressWarnings({ "rawtypes" })
         @Override
-        public boolean equals(Object o) {
-
-            if (o == this) {
-                return true;
-            } else if (o == null || o.getClass() != this.getClass()) {
-                return false;
-            } else {
-                List l = (Cons) o;
-
-                return this.isEqualTo(l);
-            }
+        public List<A> setHead(A h) {
+            return new Cons<>(h, this.tail);
         }
 
         @Override
-        public Set<A> toSet() {
-            return null;
+        public boolean isEqualTo(List<A> xs) {
+            return !xs.isEmpty() && head().equals(xs.head()) && tail().isEqualTo(xs.tail());
+            //return takeWhile(y -> y==(xs.head())) == xs;
         }
 
         @Override
-        public List<A> nub() {
-            return null;
-        }
-
-
-        private ScriptReader fromList(Cons<A> aCons) {
-            return null;
+        public <B> B foldl(Function<B, Function<A, B>> f, B identity) {
+            return isEmpty() ? identity : foldl(f, f.apply(identity).apply(head()), tail());
         }
 
         @Override
-        public Result<A> headOption() {
-            return Result.success(head);
+        <B> B foldr(Function<A, Function<B, B>> f, B identity) {
+            return isEmpty() ? identity : f.apply(head()).apply(foldr(tail(), identity, f));
         }
 
-        @Override
-        public Result<A> find(Function<A, Boolean> p) {
-            return Result.success(this.finde(p));
-        }
+        //@Override
+        //public Set<A> toSet() { return fromList(this); }
+
+        //@Override
+        //public List<A> nub() {
+        //    return fromList(this).toList();
+        //}
+
 
     }
+
 
     @SuppressWarnings("unchecked")
     public static <A> List<A> list() {
@@ -562,17 +501,319 @@ public abstract class List<A> {
         return n;
     }
 
+    public Boolean elemMitAnyL(List<A> xs, A y) {
+        return anyL(x -> x.equals(y), xs);
+    }
+
+    /*
+        public List<A> reverse() {
+            return reverse_(list(), this).eval();
+        }
+
+        private TailCall<List<A>> reverse_(List<A> acc, List<A> list) {
+            return list.isEmpty()
+                    ? ret(acc)
+                    : sus(() -> reverse_(new Cons<>(list.head(), acc), list.tail()));
+        }
+    */
+    public List<A> reverseL() {
+        return foldl(xs -> xs::cons, list());
+    }
+
+    /*
+    public List<A> init() {
+        return reverse().tail().reverse();
+    }
+*/
+    /*
+    public static <A,B> List<B> map(Function<A,B> f, List<A> list) {
+        return list.isEmpty()
+                ? list()
+                : new Cons<>(f.apply(list.head()), map(f, list.tail()));
+    }
+*/
+    public <B> List<B> mapR(Function<A, B> f) {
+        return foldr(h -> t -> new Cons<>(f.apply(h), t), list());
+    }
+
+    public List<A> filterR(Function<A, Boolean> f) {
+        return foldr(h -> t -> f.apply(h) ? new Cons<>(h, t) : t, list());
+    }
+
+    public static boolean and(List<Boolean> list) {
+        return list.isEmpty() || list.head() && and(list.tail());
+    }
+
+    public static boolean andR(List<Boolean> list) {
+        return foldr(list, true, x -> y -> x && y);
+    }
+
+    public static boolean andL(List<Boolean> list) {
+        return foldr(list, true, y -> x -> x && y);
+    }
+
+    public static boolean or(List<Boolean> list) {
+        return !list.isEmpty() && (list.head() || or(list.tail()));
+    }
+
+    public static boolean orR(List<Boolean> list) {
+        return foldr(list, false, x -> y -> x || y);
+    }
+
+    public static boolean orL(List<Boolean> list) {
+        return foldr(list, false, y -> x -> x || y);
+    }
+
+    public static <A> List<A> append(List<A> list1, List<A> list2) {
+        return list1.isEmpty()
+                ? list2
+                : new Cons<>(list1.head(), append(list1.tail(), list2));
+    }
+
+    public static <A> List<A> appendR(List<A> list1, List<A> list2) {
+        return foldr(list1, list2, x -> y -> new Cons<>(x, y));
+    }
+
+    public static Integer sum(List<Integer> list) {
+        return list.isEmpty() ? 0 : list.head() + sum(list.tail());
+    }
+
+    public static Integer sumR(List<Integer> list) {
+        return foldr(list, 0, x -> y -> x + y);
+    }
+
+    public static Integer sumL(List<Integer> list) {
+        return foldl(y -> x -> x + y, 0, list);
+    }
+
+    public static Double prod(List<Double> list) {
+        return list.isEmpty() ? 1 : list.head() * prod(list.tail());
+    }
+
+    public static Double prodR(List<Integer> list) {
+        return foldr(list, 1.0, x -> y -> x * y);
+    }
+
+    public static Double prodL(List<Integer> list) {
+        return foldl(y -> x -> x * y, 1.0, list);
+    }
+
+    public int lengthR() {
+        return foldr(this, 0, x -> y -> y + 1);
+    }
+
+    public int lengthL() {
+        return foldl(y -> x -> y + 1, 0, this);
+    }
+/*
+    public static Integer minimum(List<Integer> list) {
+        if (list.isEmpty()) throw new IllegalStateException("Minimum of Empty List");
+        return list.head() > list.tail().head()
+                ? list.head()
+                : minimum(list.tail());
+    }
+
+ */
+/*
+    public static Integer minimum(List<Integer> list) {
+        if (list.isEmpty())
+            throw new IllegalStateException("minimum called on empty list");
+        return (list.length() == 1) ? list.head() : Math.min(list.head(), minimum(list.tail()));
+    }
+*/
+
+    public static <A extends Comparable<A>> A minimum(List<A> list) {
+        if (list.isEmpty()) {
+            throw new IllegalStateException("minimum of empty List");
+        } else {
+            return (list.length() == 1) || list.filter(x -> x.compareTo(list.head()) <= 0).length() <= 1 ? list.head() : minimum(list.tail());
+        }
+
+    }
+
+    public static <A extends Comparable<A>> A maximum(List<A> list) {
+        if (list.isEmpty()) {
+            throw new IllegalStateException("maximum of empty List");
+        } else {
+            return (list.length() == 1) || list.filter(x -> x.compareTo(list.head()) >= 0).length() <= 1 ? list.head() : maximum(list.tail());
+        }
+    }
+
+    /*
+        public static Integer maximum(List<Integer> list) {
+            if (list.isEmpty()) throw new IllegalStateException("maximum of empty list");
+            return list.head() > list.tail().head()
+                    ? list.head()
+                    : maximum(list.tail());
+        }
+
+    public static Integer maximum(List<Integer> list) {
+        if (list.isEmpty())
+            throw new IllegalStateException("maximum called on empty list");
+        return (list.length() == 1) ? list.head() : Math.max(list.head(), maximum(list.tail()));
+    }
+*/
+    public static <A> List<A> concat(List<List<A>> list) {
+        return list.isEmpty() ? list() : append(list.head(), concat(list.tail()));
+    }
+
+    public static <A> List<A> concatR(List<List<A>> list) {
+        return foldr(list, List.<A>list(), x -> y -> append(x, y));
+    }
+
+    public static <T, U> U foldr(List<T> ts, U identity,
+                                 Function<T, Function<U, U>> f) {
+        return ts.isEmpty()
+                ? identity
+                : f.apply(ts.head()).apply(foldr(ts.tail(), identity, f));
+    }
+
+    public static <T, U> U foldl(Function<U, Function<T, U>> f, U identity, List<T> ts) {
+        return foldl_(ts, identity, f).eval();
+    }
+
+    private static <T, U> TailCall<U> foldl_(List<T> ts, U identity,
+                                             Function<U, Function<T, U>> f) {
+        return ts.isEmpty()
+                ? ret(identity)
+                : sus(() -> foldl_(ts.tail(),
+                f.apply(identity).apply(ts.head()), f));
+    }
+
+    /*
+    public static <A, B> B foldl(Function<B, Function<A, B>> f, B s, List<A> xs) {
+        return xs.isEmpty() ? s : foldl(f, f.apply(s).apply(xs.head()), xs.tail());
+    }
+    */
+    public <B> List<B> concatMap(Function<A, List<B>> f) {
+        return foldr(h -> t -> append(f.apply(h), t), list());
+    }
+
+    public boolean elemR(A x) {
+        return foldr(y -> z -> y.equals(x), false);
+    }
+
+    public boolean elemL(A x) {
+        return foldr(z -> y -> y.equals(x), false);
+    }
+
+    public boolean anyR(Function<A, Boolean> p) {
+        return foldr(x -> y -> p.apply(x) || y /*anyR(p)*/, false); //Fehlerhaft
+    }
+
+    public Boolean anyL(Function<A, Boolean> p, List<A> xs) {
+        return foldl(x -> y -> p.apply(y) || x, false, xs);
+    }
+
+    public boolean allMitAnyL(Function<A, Boolean> p, List<A> list) {
+        return list.isEmpty() || !anyL(x -> !p.apply(x), list);
+    }
+
+    public Boolean allR(Function<A, Boolean> p) {
+        return foldr(x -> y -> p.apply(x) && y, true);
+    }
+
+    public Boolean allL(Function<A, Boolean> p) {
+        return foldl(y -> x -> p.apply(x) && y, true);
+    }
+
+    public List<A> takeWhileR(Function<A, Boolean> p) {
+        return foldr(x -> ys -> p.apply(x) ? new Cons<>(x, ys) : list(), list());
+    }
+
+    public String toStringR() {
+        return foldr(this, "", x -> s -> x + ", " + s);
+    }
+
+    public static List<Integer> range(int start, int end) {
+        return start > end ? list() : new Cons<Integer>(start, range(start + 1, end));
+    }
+/*
+public static List<Integer> range(int start, int end) {
+return List.unfold(start, i -> i < end
+? Result.success(new Tuple<>(i, i + 1))
+: Result.empty());
+}
+ */
+
+    public static List<String> words(String s) {
+        return s.isEmpty() ? list() : list(s.split("\\s+"));
+    }
+
+
+    public Integer euler1() {
+        return sum(range(0, 999).filterR(x -> (((Integer) x % 3) == 0) || (((Integer) x % 5) == 0)));
+    }
+    /*
+    public int eulerOne(int n, int acc) {
+        if (n == 0) return acc;
+        if (n % 3 == 0 || n % 5 == 0) {
+            return eulerOne(n - 1, acc + n);
+        } else {
+            return eulerOne(n - 1, acc);
+        }
+    }*/
+
+    /*
+        public boolean equals(List<A> a) {
+            return this.isEmpty() == a.isEmpty() && this.head() == a.head() && a.tail() == this.tail();
+        }
+
+        public boolean equals(Object o) {
+            return instanceof(
+        }
+    */
+
     public static void main(String[] args) {
-        List<Integer> l1 = list(1, 2, 3, 4, 5, 6, 7, 8);
-        List<Integer> l2 = list(1, 2, 3);
-        List<Boolean> l3 = list(true, true, true, false);
-        System.out.println(flatMap(x -> list(x + "^_^" + x, x + "-_-" + x), l2));
-        System.out.println(anyFoldl(n -> n == 4, l2));
-        System.out.println(l2.dropWhile(n -> n % 2 != 0));
-        System.out.println(append(l1.take(3), l1.drop(3)));
-        System.out.println(and(l3) + " " + or(l3));
-        System.out.println(l2.takeWhile(n -> n == 2));
-        System.out.println(l1.find(n-> n%2==0));
+        List<Integer> list = list(69, 420);
+        List<Integer> list2 = list(69, 420);
+        List<Character> list3 = list('b', 'a', 'c');
+        //System.out.println(list.find(x -> x==3));
+        //System.out.println(euler1());
+        //System.out.println(words("  Habedere oide Fischhaut    lang   nix mehr ghert  ")); // => [Habedere, oide, Fischhaut, lang, nix, mehr, ghert, NIL]
+        System.out.println(minimum(list));
+        System.out.println(minimum(list2));
+        System.out.println(minimum(list3));
+        System.out.println(maximum(list));
+        System.out.println(maximum(list2));
+        System.out.println(maximum(list3));
     }
 
 }
+
+/*
+Nicht Fertig:
+
+Instanzmethode	:	boolean elem(A x)
+Instanzmethode 	:	boolean any(Function<A, Boolean> p)
+Instanzmethode 	:	boolean all(Function<A, Boolean> p)
+Klassenmethode  :	static <A> List<A> concat(List<List<A>> list)
+Instanzmethode  : 	List<A> filter(Function<A, Boolean> f)
+Instanzmethode  : 	A finde(Function<A, Boolean> f)
+Instanzmethode  : 	List<A> takeWhile(Function<A, Boolean> p)
+Instanzmethode  : 	boolean isEqualTo(List<A> xs)
+
+
+Fertig:
+
+Instanzmethode  : 	List<A> reverse()
+Instanzmethode  : 	List<A> init()
+Instanzmethode 	:	<B> List<B> map(Function<A, B> f)
+Klassenmethode  :	static <A> List<A> append(List<A> list1, List<A> list2)
+Klassenmethode  :	static boolean and(List<Boolean> list)
+Klassenmethode  :	static boolean or(List<Boolean> list)
+Klassenmethode	:	static Integer sum(List<Integer> list)
+Klassenmethode	:	static Double prod(List<Double> list)
+Instanzmethode	:	int length()
+Klassenmethode  :	static Integer minimum(List<Integer> list)
+Klassenmethode  :	static Integer maximum(List<Integer> list)
+Instanzmethode  : 	List<A> dropWhile(Function<A, Boolean> p)
+Instanzmethode  : 	List<A> take(int n)
+Instanzmethode  : 	List<A> drop(int n)
+Instanzmethode  : 	List<A> delete(A x)
+Instanzmethode  : 	A last()
+
+List<A> reverse()
+<B> List<B> map(Function<A, B> f)
+List<A> init()
+ */

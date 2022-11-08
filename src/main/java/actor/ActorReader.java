@@ -30,7 +30,7 @@ public class ActorReader extends AbstractActor<String> implements Input {
         return Result.of(() -> tuple(queue.poll(timeout, TimeUnit.MILLISECONDS), this));
     }
 
-    static Input actorReader(String id, long timeout) {
+    private static ActorReader actorReader(String id, long timeout) {
 
         return new ActorReader(id, timeout);
     }

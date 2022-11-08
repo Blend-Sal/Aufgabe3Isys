@@ -7,7 +7,6 @@ import actor.Actor;
 
 import actor.AskStream;
 import fpinjava.Result;
-import inout.ConsoleWriter;
 
 
 class Daytime extends AbstractActor<String> {
@@ -26,8 +25,7 @@ class Daytime extends AbstractActor<String> {
 
     public static void main(String[] args) throws InterruptedException {
         Daytime daytime = new Daytime("daytime", Type.SERIAL);
-        ConsoleWriter output = ConsoleWriter.stdout();
-        AskStream.ask(daytime, "zeit", 500);
+        System.out.println(AskStream.ask(daytime, "zeit", 500).head());
 
     }
 
