@@ -5,7 +5,7 @@ import list.List;
 import static list.List.*;
 
 
-public class ScriptWriter implements Output{
+public class ScriptWriter implements Output {
 
     List<String> out;
 
@@ -17,6 +17,11 @@ public class ScriptWriter implements Output{
     @Override
     public void print(String s) {
         out = out.cons(s);
+    }
+
+    @Override
+    public void printLine(String s) {
+        print(s);
     }
 
     public List<String> toList() {

@@ -1,6 +1,5 @@
 package echo.actor;
 
-import actor.Actor;
 import actor.Writer;
 import inout.ScriptReader;
 import inout.ScriptWriter;
