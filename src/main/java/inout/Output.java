@@ -1,5 +1,7 @@
 package inout;
 
+import java.io.IOException;
+
 public interface Output {
 
     void print(String s);
@@ -8,5 +10,5 @@ public interface Output {
         print(s+"\n");
     }
 
-    void shutdownOutput();
+    void shutdownOutput() throws IOException;
 }

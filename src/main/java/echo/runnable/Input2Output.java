@@ -6,6 +6,8 @@ import inout.Input;
 import inout.Output;
 
 
+import java.io.IOException;
+
 import static inout.ConsoleReader.stdin;
 import static inout.ConsoleWriter.stdout;
 
@@ -14,7 +16,7 @@ public class Input2Output {
     private final Output output;
 
 
-    public Input2Output(Input in, Output out) {
+    public Input2Output(Input in, Output out) throws IOException {
         input = in;
         output = out;
 

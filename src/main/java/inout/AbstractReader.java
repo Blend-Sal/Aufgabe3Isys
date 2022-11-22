@@ -4,6 +4,7 @@ import fpinjava.Result;
 import tuple.Tuple;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 public class AbstractReader implements Input {
     protected final BufferedReader reader;
@@ -25,7 +26,7 @@ public class AbstractReader implements Input {
     }
 
     @Override
-    public void shutdownInput() {
+    public void shutdownInput() throws IOException {
 
     }
 }

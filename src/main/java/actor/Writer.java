@@ -4,6 +4,8 @@ import fpinjava.Result;
 import inout.Input;
 import inout.Output;
 
+import java.io.IOException;
+
 import static actor.Reader.reader;
 
 public class Writer extends AbstractActor<String> {
@@ -30,7 +32,7 @@ public class Writer extends AbstractActor<String> {
 
 
     @Override
-    public void onReceive(String message, Result<Actor<String>> sender) {
+    public void onReceive(String message, Result<Actor<String>> sender) throws IOException {
         if (message.equals("\u0004")) {
             this.output.shutdownOutput();
         } else {

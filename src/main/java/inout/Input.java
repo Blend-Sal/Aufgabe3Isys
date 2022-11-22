@@ -5,6 +5,7 @@ import stream.Stream;
 import tuple.Tuple;
 
 
+import java.io.IOException;
 
 import static tuple.Tuple.tuple;
 
@@ -30,7 +31,7 @@ public interface Input {
         return Stream.<Integer, Input>unfold(this, Input::readInt);
     }
 
-    void shutdownInput();
+    void shutdownInput() throws IOException;
 
 }
 

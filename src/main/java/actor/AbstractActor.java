@@ -2,6 +2,7 @@ package actor;
 
 import fpinjava.Result;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -33,7 +34,7 @@ public abstract class AbstractActor<T> implements Actor<T> {
         };
     }
 
-    public abstract void onReceive(T message, Result<Actor<T>> sender);
+    public abstract void onReceive(T message, Result<Actor<T>> sender) throws IOException;
 
     public Result<Actor<T>> self() {
         return Result.success(this);
