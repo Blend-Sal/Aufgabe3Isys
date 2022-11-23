@@ -9,21 +9,27 @@ import java.net.Socket;
 
 public class EchoServer {
     public static void main(String[] args) {
+        if (args.length != 1) {
+            System.err.println("Usage: java EchoServer <port>");
+            return;
+        }
         try (
-                ServerSocket serverSocket = new ServerSocket(7777);
+                ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]));
                 Socket socket = serverSocket.accept();
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
-        )
-        { System.
-                out.println("Verbindung hergestellt");
-            String input;
-            while ((input = in.readLine()) != null) {
-                out.println(input);
-            }
+        ) {
             System.
-                    out.println("Verbindung beenden");
-        } catch (IOException e) {System.err.println(e);}
+                    out.println("Verbindung hergestellt");
+            while (in.readLine() != null) {
+                out.println(in.readLine());
+            }
+            socket.shutdownInput();
+            System.
+                    out.println("Verbindung beendet");
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 }

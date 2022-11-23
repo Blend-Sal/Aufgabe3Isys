@@ -31,7 +31,7 @@ public class TCPReader extends AbstractReader {
     @Override
     public void shutdownInput() {
         try {
-            socket.shutdownInput(); // Dies schließt nicht den Socket, sondern dessen Input, indem es den Stream auf "End of Stream" umstellt.
+            socket.shutdownInput(); // Dies schließt nicht den Socket, sondern dessen Input, indem es den Input - Stream auf "End of Stream" umstellt.
         } catch (Exception e) {
             e.printStackTrace();
         }

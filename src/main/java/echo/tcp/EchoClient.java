@@ -19,9 +19,8 @@ public class EchoClient {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
         ) {
             out.println(data);
-            String input;
-            if ((input = in.readLine()) != null) {
-                System.out.println(input);
+            if (in.readLine() != null) {
+                System.out.println(in.readLine());
             }
             socket.close();
         } catch (Exception e) {

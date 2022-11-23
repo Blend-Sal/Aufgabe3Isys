@@ -19,11 +19,11 @@ public class DaytimeServer {
                 Socket socket = serverSocket.accept();
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream());
+                PrintWriter out = new PrintWriter(socket.getOutputStream())
         ){
             System.out.println("Verbindung hergestellt");
             out.println(java.time.LocalDateTime.now()+ "");
-            System.out.println("Verbindung beenden");
+            System.out.println("Verbindung beendet");
             socket.close();
 
         } catch (IOException e) {
