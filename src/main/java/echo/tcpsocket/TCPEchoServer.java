@@ -9,7 +9,7 @@ public class TCPEchoServer {
 
     public static void main(String[] args) throws Exception {
         if (args.length != 1) {
-            System.err.println("Usage: java TCPEchoServer Port");
+            System.err.println("Usage: java TCPEchoServer <Port>");
             return;
         }
         int port = Integer.parseInt(args[0]);
@@ -18,7 +18,7 @@ public class TCPEchoServer {
         Callable<InputOutput> inout = TCPReaderWriter.accept(port);
         System.out.println("Verbindung hergestellt.");
         InputOutput inputOutput = inout.call();
-        inputOutput.readLines().forEach(inputOutput::printLine);
+        inputOutput.readLines().forEach(inputOutput::print);
         System.out.println("Verbindung beendet.");
 
     }

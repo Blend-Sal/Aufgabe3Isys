@@ -20,12 +20,11 @@ public class EchoServer {
                         new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
         ) {
-            System.
-                    out.println("Verbindung hergestellt");
-            while (in.readLine() != null) {
+            System.out.println("Verbindung hergestellt");
+            while (in.readLine() != null) { //TODO ForEach?
                 out.println(in.readLine());
             }
-            socket.shutdownInput();
+            //in.lines().forEach(out.println(in.readLine()));
             System.
                     out.println("Verbindung beendet");
         } catch (IOException e) {

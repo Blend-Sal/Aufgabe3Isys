@@ -12,7 +12,7 @@ public class DaytimeClient {
         }
         try (Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
              InputStream in = socket.getInputStream()
-             ) {
+        ) {
             System.out.println(new Date());
 
         } catch (Exception e) {

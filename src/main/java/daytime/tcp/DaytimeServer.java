@@ -15,14 +15,13 @@ public class DaytimeServer {
         int port = Integer.parseInt(args[0]);
 
         try (
-                ServerSocket serverSocket = new ServerSocket(port);
-                Socket socket = serverSocket.accept();
+                Socket socket = new ServerSocket(port).accept();
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream())
-        ){
+        ) {
             System.out.println("Verbindung hergestellt");
-            out.println(java.time.LocalDateTime.now()+ "");
+            out.println(java.time.LocalDateTime.now() + "");
             System.out.println("Verbindung beendet");
             socket.close();
 

@@ -15,6 +15,7 @@ public class TCPDaytimeClient {
         int port = Integer.parseInt(args[1]);
         Input in = TCPReader.connectTo(host, port).call();
         in.readLines().forEach(System.out::println);
+        in.shutdownInput();
     }
 
 }

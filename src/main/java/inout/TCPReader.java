@@ -15,17 +15,24 @@ public class TCPReader extends AbstractReader {
     public TCPReader(Socket socket) throws IOException {
         super(new BufferedReader(new InputStreamReader(socket.getInputStream())));
         this.socket = socket;
-        socket.shutdownOutput();
+
     }
 
-
-    @SuppressWarnings("resource")
     public static Callable<Input> accept(int localPort) {
-        return () -> new TCPReader(new ServerSocket(localPort).accept());
+        return () -> {
+            Socket socket1 = new ServerSocket(localPort).accept();
+            socket1.shutdownOutput();
+            return new TCPReader(socket1);
+        };
     }
 
     public static Callable<Input> connectTo(String remoteHost, int remotePort) {
-        return () -> new TCPReader(new Socket(remoteHost, remotePort));
+
+        return () -> {
+            Socket socket1 = new Socket(remoteHost, remotePort);
+            socket1.shutdownOutput();
+            return new TCPReader(new Socket(remoteHost, remotePort));
+        };
     }
 
     @Override

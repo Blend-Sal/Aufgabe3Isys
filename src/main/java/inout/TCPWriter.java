@@ -14,17 +14,25 @@ public class TCPWriter extends AbstractWriter {
     public TCPWriter(Socket socket) throws IOException {
         super(new PrintWriter(socket.getOutputStream(), true));
         this.socket = socket;
-        socket.shutdownInput();
     }
 
 
     @SuppressWarnings("resource")
     public static Callable<Output> accept(int localPort) {
-        return () -> new TCPWriter(new ServerSocket(localPort).accept());
+
+        return () -> {
+            Socket socket1 = new ServerSocket(localPort).accept();
+            socket1.shutdownInput();
+            return new TCPWriter(socket1);
+        };
     }
 
     public static Callable<Output> connectTo(String remoteHost, int remotePort) {
-        return () -> new TCPWriter(new Socket(remoteHost, remotePort));
+        return () -> {
+            Socket socket1 = new Socket(remoteHost, remotePort);
+            socket1.shutdownInput();
+            return new TCPWriter(socket1);
+        };
     }
 
     public void close() throws IOException {
