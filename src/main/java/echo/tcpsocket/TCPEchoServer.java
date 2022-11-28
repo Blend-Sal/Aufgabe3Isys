@@ -18,7 +18,7 @@ public class TCPEchoServer {
         Callable<InputOutput> inout = TCPReaderWriter.accept(port);
         System.out.println("Verbindung hergestellt.");
         InputOutput inputOutput = inout.call();
-        inputOutput.readLines().forEach(inputOutput::print);
+        inputOutput.readLines().forEach(inputOutput::printLine);
         System.out.println("Verbindung beendet.");
 
     }

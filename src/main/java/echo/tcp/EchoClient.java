@@ -5,8 +5,8 @@ import java.net.Socket;
 
 public class EchoClient {
     public static void main(String[] args) throws Exception {
-        if (args.length != 2) {
-            System.err.println("Usage: java EchoClient <host> <port>");
+        if (args.length != 3) {
+            System.err.println("Usage: java EchoClient <host> <port> <data>");
             return;
         }
 
@@ -15,9 +15,10 @@ public class EchoClient {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
         ) {
-            if (in.readLine() != null) {
-                out.println(in.readLine());
-                System.out.println(in.readLine());
+                String input;
+                out.println(args[2]);
+            if ((input = in.readLine()) != null) {
+                System.out.println(input);
             }
             socket.close();
         } catch (Exception e) {

@@ -21,8 +21,9 @@ public class EchoServer {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
         ) {
             System.out.println("Verbindung hergestellt");
-            while (in.readLine() != null) { //TODO ForEach?
-                out.println(in.readLine());
+            String input;
+            if ((input = in.readLine()) != null) { //TODO ForEach?
+                out.println(input);
             }
             //in.lines().forEach(out.println(in.readLine()));
             System.
