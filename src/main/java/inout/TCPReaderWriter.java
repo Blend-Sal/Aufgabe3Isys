@@ -28,6 +28,14 @@ public class TCPReaderWriter implements InputOutput {
         this.abstractReader = new AbstractReader((new BufferedReader(new InputStreamReader(socket.getInputStream()))));
     }
 
+    public static TCPReaderWriter tcpReaderWriter(int port) throws IOException {
+        return new TCPReaderWriter(port);
+    }
+
+    public static TCPReaderWriter tcpReaderWriter(String host, int port) throws IOException {
+        return new TCPReaderWriter(host, port);
+    }
+
     public static Callable<InputOutput> accept(int localPort) {
 
         return () -> new TCPReaderWriter(localPort);

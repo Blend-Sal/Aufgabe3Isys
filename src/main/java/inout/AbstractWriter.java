@@ -15,7 +15,6 @@ public class AbstractWriter implements Output {
     public void print(String s) {
         writer.print(s);
         writer.flush();
-
     }
 
     public void println(String s) {
