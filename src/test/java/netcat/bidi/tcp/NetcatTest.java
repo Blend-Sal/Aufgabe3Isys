@@ -8,8 +8,8 @@ import static inout.ProcessReaderWriter.processReaderWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetcatTest {
-    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "builds/vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "-l", "5555");
-    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "builds/vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "localhost", "5555");
+    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "-l", "5555");
+    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "localhost", "5555");
     @ParameterizedTest
     @CsvSource({
             "ClientzuServerNachricht, ServerzuClientNachricht",
