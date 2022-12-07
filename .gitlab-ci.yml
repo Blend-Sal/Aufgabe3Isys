@@ -42,12 +42,12 @@ ChatRoom:
 UniNetcat:
   stage: test
   script:
-    - mvn -Dtest=netcat.uni.tcp.NetcatTest netcatTest
+    - mvn -Dtest=netcat.uni.tcp.NetcatTest test
 
 BidiNetcat:
     stage: test
     script:
-      - mvn -Dtest=netcat.bidi.tcp.NetcatTest netcatTest
+      - mvn -Dtest=netcat.bidi.tcp.NetcatTest test
 
 
 
