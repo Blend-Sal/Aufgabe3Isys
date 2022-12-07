@@ -8,8 +8,8 @@ import static inout.ProcessReaderWriter.processReaderWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetcatTest {
-    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "VSys/out/artifacts/BidiNetcat_jar/BidiNetcat.java", "-l", "5555");
-    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "VSys/out/artifacts/BidiNetcat_jar/BidiNetcat.java", "localhost", "5555");
+    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "builds/vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/src/main/resources/BidiNetcat.jar", "-l", "5555");
+    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "builds/vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/src/main/resources/BidiNetcat.jar", "localhost", "5555");
     @ParameterizedTest
     @CsvSource({
             "ClientzuServerNachricht, ServerzuClientNachricht",
@@ -30,9 +30,7 @@ class NetcatTest {
 
         serverReaderWriter.printLine(str2 + "\n");
 
-        //serverReaderWriter.readLine().forEach(x -> assertEquals(x.fst, str1));
         assertEquals(serverReaderWriter.readLines().head(), str1);
-        //clientReaderWriter.readLine().forEach(x -> assertEquals(x.fst, str2));
         assertEquals(clientReaderWriter.readLines().head(), str2);
 
         client.destroy();
