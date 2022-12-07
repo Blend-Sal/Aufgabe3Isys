@@ -39,6 +39,17 @@ ChatRoom:
   script:
     - mvn -Dtest=chat.actor.ChatRoomTest test
 
+UniNetcat:
+  stage: test
+  script:
+    - mvn -Dtest=netcat.uni.tcp.NetcatTest netcatTest
+
+BidiNetcat:
+    stage: test
+    script:
+      - mvn -Dtest=netcat.bidi.tcp.NetcatTest netcatTest
+
+
 
 deploy-prod:
   stage: deploy

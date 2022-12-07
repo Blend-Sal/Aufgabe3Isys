@@ -20,6 +20,7 @@ public class TCPEchoServer {
         InputOutput inputOutput = inout.call();
         inputOutput.readLines().forEach(inputOutput::printLine);
         System.out.println("Verbindung beendet.");
+        inputOutput.shutdownInput();
 
     }
 

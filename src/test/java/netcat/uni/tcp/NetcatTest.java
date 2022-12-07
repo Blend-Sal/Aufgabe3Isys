@@ -21,11 +21,11 @@ class NetcatTest {
         Process client = clientbuilder.start();
 
         Output clientWriter = processWriter(client);
-        clientWriter.printLine(str + "\n");
+        clientWriter.printLine(str);
         clientWriter.shutdownOutput();
         Input serverReader = processReader(server);
 
-        assertEquals(str, serverReader.readLine().successValue().fst);
+        assertEquals(str, serverReader.readLines().head());
         client.destroy();
         server.destroy();
     }

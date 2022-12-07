@@ -15,6 +15,7 @@ public class TCPEchoClient {
         InputOutput inout = TCPReaderWriter.connectTo(host, port).call();
         inout.printLine(args[2]);
         inout.readLines().forEach(System.out::println);
+        inout.shutdownOutput();
 
     }
 

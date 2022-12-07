@@ -12,12 +12,12 @@ public final class Netcat {
     private Netcat(int port) throws Exception {
 
         writer("server", accept(port).call(), Actor.Type.SERIAL, stdout()).start();
-        Thread.sleep(100000);
+        Thread.sleep(60000);
     }
 
     private Netcat(String adr, int port) throws Exception {
         writer("client", stdin(), Actor.Type.SERIAL, connectTo(adr, port).call()).start();
-        Thread.sleep(100000);
+        Thread.sleep(60000);
     }
 
     public static void main(String[] args) throws Exception {

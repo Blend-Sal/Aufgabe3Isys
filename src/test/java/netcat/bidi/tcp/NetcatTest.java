@@ -8,8 +8,8 @@ import static inout.ProcessReaderWriter.processReaderWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetcatTest {
-    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "C:\\IntelliJ_Projects\\VSys\\out\\artifacts\\BidiNetcat_jar\\BidiNetcat.java", "-l", "5555");
-    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "C:\\IntelliJ_Projects\\VSys\\out\\artifacts\\BidiNetcat_jar\\BidiNetcat.java", "localhost", "5555");
+    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "VSys/out/artifacts/BidiNetcat_jar/BidiNetcat.java", "-l", "5555");
+    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "VSys/out/artifacts/BidiNetcat_jar/BidiNetcat.java", "localhost", "5555");
     @ParameterizedTest
     @CsvSource({
             "ClientzuServerNachricht, ServerzuClientNachricht",
@@ -18,22 +18,23 @@ class NetcatTest {
     })
     void netcatTest(String str1,String str2) throws Exception {
 
-        Process server = serverbuilder.start();
         Process client = clientbuilder.start();
+        Process server = serverbuilder.start();
 
         InputOutput serverReaderWriter = processReaderWriter(server);
         InputOutput clientReaderWriter = processReaderWriter(client);
 
         clientReaderWriter.printLine(str1 + "\n");
-        //clientReaderWriter.shutdownOutput();
+
         Thread.sleep(100);
 
         serverReaderWriter.printLine(str2 + "\n");
-        //serverReaderWriter.shutdownOutput();
 
+        //serverReaderWriter.readLine().forEach(x -> assertEquals(x.fst, str1));
+        assertEquals(serverReaderWriter.readLines().head(), str1);
+        //clientReaderWriter.readLine().forEach(x -> assertEquals(x.fst, str2));
+        assertEquals(clientReaderWriter.readLines().head(), str2);
 
-        assertEquals(str1, serverReaderWriter.readLine().successValue().fst);
-        assertEquals(str2, clientReaderWriter.readLine().successValue().fst);
         client.destroy();
         server.destroy();
     }
