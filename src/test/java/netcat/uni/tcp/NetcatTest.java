@@ -25,7 +25,7 @@ class NetcatTest {
         clientWriter.shutdownOutput();
         Input serverReader = processReader(server);
 
-        assertEquals(str, serverReader.readLines().head());
+        assertEquals(str, serverReader.readLine().successValue().fst);
         client.destroy();
         server.destroy();
     }
