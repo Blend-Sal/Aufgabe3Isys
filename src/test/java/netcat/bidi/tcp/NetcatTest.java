@@ -30,8 +30,8 @@ class NetcatTest {
 
         serverReaderWriter.printLine(str2 + "\n");
 
-        assertEquals(serverReaderWriter.readLine().successValue().fst, str1);
-        assertEquals(clientReaderWriter.readLine().successValue().fst, str2);
+        assertEquals(serverReaderWriter.readLines().head(), str1);
+        assertEquals(clientReaderWriter.readLines().head(), str2);
 
         client.destroy();
         server.destroy();
