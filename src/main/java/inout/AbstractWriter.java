@@ -28,4 +28,3 @@ public class AbstractWriter implements Output {
 
 
 }
-
