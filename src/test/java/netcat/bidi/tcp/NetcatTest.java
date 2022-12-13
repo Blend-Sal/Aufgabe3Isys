@@ -24,20 +24,17 @@ class NetcatTest {
         Process server = serverbuilder.start();
         Process client = clientbuilder.start();
 
-
         InputOutput serverReaderWriter = processReaderWriter(server);
         InputOutput clientReaderWriter = processReaderWriter(client);
 
-        clientReaderWriter.print(str1);
+        clientReaderWriter.printLine(str1);
 
         Thread.sleep(100);
 
-        serverReaderWriter.print(str2);
+        serverReaderWriter.printLine(str2);
 
-        //assertEquals(serverReaderWriter.readLines().head(), str1);
-        //assertEquals(clientReaderWriter.readLines().head(), str2);
-        serverReaderWriter.readLine().forEach(x -> assertEquals(x.fst, str1));
-        clientReaderWriter.readLine().forEach(x -> assertEquals(x.fst, str2));
+        assertEquals(serverReaderWriter.readLines().head(), str1);
+        assertEquals(clientReaderWriter.readLines().head(), str2);
 
         client.destroy();
         server.destroy();

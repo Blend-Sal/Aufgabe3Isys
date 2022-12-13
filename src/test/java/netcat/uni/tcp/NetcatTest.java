@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class NetcatTest {
     ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/out/artifacts/Praktikum_jar/UniNetcat.jar", "-l", "5555");
     ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "vspraktikum/wise22_23/Igor.Greszta/aufgaben-ab-0/out/artifacts/Praktikum_jar/UniNetcat.jar", "localhost", "5555");
+
     @ParameterizedTest
     @ValueSource(strings = {"Nachrichten", "von", "Client", "zu", "Server"})
     void netcatTest(String str) throws Exception {
