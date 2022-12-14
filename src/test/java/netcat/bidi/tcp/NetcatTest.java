@@ -8,8 +8,8 @@ import static inout.ProcessReaderWriter.processReaderWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetcatTest {
-   ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "-l", "5555");
-   ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "localhost", "5555");
+   ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "-l", "7777");
+   ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "localhost", "7777");
 
     //ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "C:\\IntelliJ_Projects\\VSys\\out\\artifacts\\BidiNetcat_jar\\BidiNetcat.jar", "-l", "5555");
     //ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "C:\\IntelliJ_Projects\\VSys\\out\\artifacts\\BidiNetcat_jar\\BidiNetcat.jar", "localhost", "5555");
@@ -30,18 +30,17 @@ class NetcatTest {
         InputOutput clientReaderWriter = processReaderWriter(client);
 
         clientReaderWriter.printLine(str1);
+        serverReaderWriter.printLine(str2);
+        clientReaderWriter.printLine("\u0004");
+        serverReaderWriter.printLine("\u0004");
+        clientReaderWriter.shutdownOutput();
+        serverReaderWriter.shutdownOutput();
 
         Thread.sleep(100);
 
-        serverReaderWriter.printLine(str2);
 
         assertEquals(serverReaderWriter.readLines().head(), str1);
         assertEquals(clientReaderWriter.readLines().head(), str2);
-
-        serverReaderWriter.shutdownInput();
-        serverReaderWriter.shutdownOutput();
-        clientReaderWriter.shutdownInput();
-        clientReaderWriter.shutdownOutput();
 
         client.destroy();
         server.destroy();
