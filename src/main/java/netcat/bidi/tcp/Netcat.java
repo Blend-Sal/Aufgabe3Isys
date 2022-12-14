@@ -17,7 +17,7 @@ public final class Netcat {
         Writer serverConsoleWriter = writer("serverconsole", stdin(), Actor.Type.SERIAL, stdout());
         serverSocketWriter.start(Result.success(serverConsoleWriter));
         serverConsoleWriter.start(Result.success(serverSocketWriter));
-        Thread.sleep(60);
+        Thread.sleep(500);
     }
 
     private Netcat(String adr, int port) throws Exception {
@@ -26,7 +26,7 @@ public final class Netcat {
         Writer clientConsoleWriter = writer("clientconsole", stdin(), Actor.Type.SERIAL, stdout());
         clientSocketWriter.start(Result.success(clientConsoleWriter));
         clientConsoleWriter.start(Result.success(clientSocketWriter));
-        Thread.sleep(5000);
+        Thread.sleep(500);
     }
 
     public static void main(String[] args) throws Exception {
