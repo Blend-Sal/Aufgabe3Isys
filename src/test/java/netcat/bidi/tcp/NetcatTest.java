@@ -11,8 +11,6 @@ class NetcatTest {
    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "-l", "7777");
    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "localhost", "7777");
 
-    //ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "C:\\IntelliJ_Projects\\VSys\\out\\artifacts\\BidiNetcat_jar\\BidiNetcat.jar", "-l", "5555");
-    //ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "C:\\IntelliJ_Projects\\VSys\\out\\artifacts\\BidiNetcat_jar\\BidiNetcat.jar", "localhost", "5555");
 
     @ParameterizedTest
     @CsvSource({
