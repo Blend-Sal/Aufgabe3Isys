@@ -16,7 +16,7 @@ public class TCPReaderWriter implements InputOutput {
     private final AbstractReader abstractReader;
     private final AbstractWriter abstractWriter;
 
-    private TCPReaderWriter(int port) throws IOException {
+    public TCPReaderWriter(int port) throws IOException {
         this.socket = new ServerSocket(port).accept();
         this.abstractReader = new AbstractReader(new BufferedReader(new InputStreamReader(socket.getInputStream())));
         this.abstractWriter = new AbstractWriter(new PrintWriter(socket.getOutputStream(), true));

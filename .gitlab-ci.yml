@@ -29,6 +29,11 @@ In2OutActor:
   script:
     - mvn -Dtest=echo.actor.Input2OutputTest test
 
+DistEchoActor:
+    stage: test
+    script:
+      -mvn -Dtest=echo.actor.DistEchoActorTest test
+
 #-Greeter:
  # stage: test
  # script:

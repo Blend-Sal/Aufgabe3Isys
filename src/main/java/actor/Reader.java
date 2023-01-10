@@ -7,7 +7,7 @@ import inout.Input;
 public class Reader extends AbstractActor<String> {
     private final Input input;
     private final Writer writer;
-
+    private boolean transceiver = false;
 
     private Reader(String id, Writer writer, Input input) {
         super(id, Type.SERIAL);
@@ -15,8 +15,19 @@ public class Reader extends AbstractActor<String> {
         this.writer = writer;
     }
 
+    private Reader(String id, Writer writer, Input input, boolean transceiver) {
+        super(id, Type.SERIAL);
+        this.input = input;
+        this.writer = writer;
+        this.transceiver = transceiver;
+    }
+
     public static Reader reader(String id, Writer writer, Input input) {
         return new Reader(id, writer, input);
+    }
+
+    public static Reader reader(String id, Writer writer, Input input, boolean transceiver) {
+        return new Reader(id, writer, input, transceiver);
     }
 
 
@@ -25,6 +36,9 @@ public class Reader extends AbstractActor<String> {
         //input.readLines().forEach(line -> sender.forEach(actor -> actor.tell(line + "\u0004", writer)));
         input.readLines().forEach(line -> {
             sender.forEach(c -> c.tell(line, writer));
+            if (!transceiver) {
+                sender.forEach(x -> x.tell("\u0004", writer));
+            }
         });
     }
 }

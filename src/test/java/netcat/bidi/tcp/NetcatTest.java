@@ -36,8 +36,8 @@ class NetcatTest {
 
         Thread.sleep(100);
 
-
         assertEquals(serverReaderWriter.readLines().head(), str1);
+
         assertEquals(clientReaderWriter.readLines().head(), str2);
 
         client.destroy();
