@@ -22,7 +22,7 @@ public class DistEchoActorTest {
    @ParameterizedTest
    @CsvSource({"Test1", "Test2", "Test3"})
    public void DistEchoActorTest(String s) throws Exception {
-       ProcessBuilder serverBuilder = new ProcessBuilder("java", "-jar" , "C:\\IntelliJ_Projects\\VSys\\out\\artifacts\\echoServer\\echoServer.jar", "localhost", "1111");
+       ProcessBuilder serverBuilder = new ProcessBuilder("java", "-jar" , "out/artifacts/echoServer/echoServer.jar", "localhost", "1111");
        Process echoServer = serverBuilder.start();
        Thread.sleep(100);
        Writer clientWriter = ActorSystem.actorSelection("localhost",1111).call();
