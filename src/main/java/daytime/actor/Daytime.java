@@ -15,6 +15,10 @@ class Daytime extends AbstractActor<String> {
         super(id, type);
     }
 
+    public static Daytime daytime(String id, Type type) {
+        return new Daytime(id, type);
+    }
+
     // Reaktion auf eine beliebige Textnachricht:
     // Ausgeben der aktuellen Systemzeit
     @Override

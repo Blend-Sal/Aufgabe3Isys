@@ -1,9 +1,13 @@
 package daytime.tcp;
 
 
+import actor.Actor;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import static java.lang.Integer.parseInt;
 
 
 public class DaytimeServer {
@@ -12,9 +16,10 @@ public class DaytimeServer {
             System.err.println("Usage: java DaytimeServer port");
             return;
         }
-        int port = Integer.parseInt(args[0]);
+        int port = parseInt(args[0]);
 
         try (
+
                 Socket socket = new ServerSocket(port).accept();
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(socket.getInputStream()));
