@@ -6,6 +6,7 @@ import inout.InputOutput;
 import inout.TCPReaderWriter;
 
 import java.net.ServerSocket;
+import java.net.Socket;
 
 import static actor.Writer.*;
 
@@ -16,7 +17,6 @@ public class ActorSystem {
         return () -> {
             try {
                 writer.start(Result.success(actor));
-                System.out.println("Runnable running");
                 Thread.sleep(100);
             } catch (Exception e) {
                 Result.failure(e);
@@ -33,9 +33,12 @@ public class ActorSystem {
 
     public static Runnable publish2multiple(Actor<String> actor, int port) throws Exception {
         return () -> {
-            try (ServerSocket socket = new ServerSocket(port)) {
+            try {
+                Socket socket = new ServerSocket(port).accept();
                 while (true) {
-                    actorSelection("localhost", socket.accept().getPort()).call();
+                    InputOutput socketReaderWriter = TCPReaderWriter.tcpReaderWriter(socket);
+                    Writer transceiver = writer("server", socketReaderWriter, socketReaderWriter, Type.SERIAL, true);
+                    transceiver.start(Result.success(actor));
                 }
             } catch (Exception e) {
                 e.printStackTrace();

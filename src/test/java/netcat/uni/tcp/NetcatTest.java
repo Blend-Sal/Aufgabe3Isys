@@ -23,8 +23,8 @@ class NetcatTest {
 
         Input serverReader = processReader(server);
         Output clientWriter = processWriter(client);
-        clientWriter.printLine(str);
-        clientWriter.printLine("\u0004");
+        clientWriter.print(str);
+        clientWriter.print("\u0004");
         clientWriter.shutdownOutput();
 
         assertEquals(str, serverReader.readLines().head());

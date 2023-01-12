@@ -1,13 +1,24 @@
 package actor;
 
+import fpinjava.Result;
 import stream.Stream;
+
+import static actor.ActorReaderWriter.actorReaderWriter;
 
 public class AskStream {
 
 
-   public static Stream<String> ask(Actor<String> actor, String message, long timeout) {
-        ActorReaderWriter aRW = ActorReaderWriter.actorReaderWriter("arW", actor, timeout);
+    public static Stream<String> ask(Actor<String> actor, String message, long timeout) {
+        ActorReaderWriter aRW = actorReaderWriter("arW", actor, timeout);
         aRW.print(message);
         return aRW.readLines();
     }
+
+    public static Stream<String> ask(Writer transceiver, String message, long timeout) {
+        ActorReaderWriter actorReaderWriter = actorReaderWriter("arW", transceiver, timeout);
+        transceiver.start(transceiver.self());
+        transceiver.tell(message, actorReaderWriter);
+        return actorReaderWriter.readLines();
+    }
+
 }

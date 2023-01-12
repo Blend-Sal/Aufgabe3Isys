@@ -18,6 +18,7 @@ public class ProcessReaderWriter implements InputOutput {
         return new ProcessReaderWriter(new AbstractReader(new BufferedReader(new InputStreamReader(process.getInputStream()))), new AbstractWriter(new PrintWriter(new OutputStreamWriter(process.getOutputStream()))));
     }
 
+
     @Override
     public Result<Tuple<String, Input>> readLine() {
         return abstractReader.readLine();

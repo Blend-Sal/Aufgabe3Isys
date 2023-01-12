@@ -22,10 +22,15 @@ public class TCPReaderWriter implements InputOutput {
         this.abstractWriter = new AbstractWriter(new PrintWriter(socket.getOutputStream(), true));
     }
 
+
     private TCPReaderWriter(String host, int port) throws IOException {
         this.socket = new Socket(host, port);
         this.abstractWriter = new AbstractWriter(new PrintWriter(socket.getOutputStream(), true));
         this.abstractReader = new AbstractReader((new BufferedReader(new InputStreamReader(socket.getInputStream()))));
+    }
+
+    public static TCPReaderWriter tcpReaderWriter(Socket socket) throws IOException {
+        return tcpReaderWriter(socket.getPort());
     }
 
     public static TCPReaderWriter tcpReaderWriter(int port) throws IOException {
@@ -57,7 +62,7 @@ public class TCPReaderWriter implements InputOutput {
 
     @Override
     public void print(String s) {
-        abstractWriter.printLine(s);
+        abstractWriter.print(s);
     }
 
     @Override
