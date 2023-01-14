@@ -16,7 +16,7 @@ public class AskStream {
 
     public static Stream<String> ask(Writer transceiver, String message, long timeout) {
         ActorReaderWriter actorReaderWriter = actorReaderWriter("arW", transceiver, timeout);
-        transceiver.start(transceiver.self());
+        transceiver.start(actorReaderWriter.self());
         transceiver.tell(message, actorReaderWriter);
         return actorReaderWriter.readLines();
     }

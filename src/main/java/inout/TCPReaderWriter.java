@@ -22,7 +22,7 @@ public class TCPReaderWriter implements InputOutput {
         this.abstractWriter = new AbstractWriter(new PrintWriter(socket.getOutputStream(), true));
     }
 
-    private TCPReaderWriter(Socket socket) throws IOException {
+    public TCPReaderWriter(Socket socket) throws IOException {
         this.socket = socket;
         this.abstractReader = new AbstractReader(new BufferedReader(new InputStreamReader(socket.getInputStream())));
         this.abstractWriter = new AbstractWriter(new PrintWriter(socket.getOutputStream(), true));
