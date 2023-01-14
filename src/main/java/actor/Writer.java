@@ -46,7 +46,7 @@ public class Writer extends AbstractActor<String> {
     public void onReceive(String message, Result<Actor<String>> sender) throws IOException {
         if (message.equals("\u0004")) {
             if (!transceiver) {
-                output.printLine("\u0004");
+                output.printLine(message);
             }
             this.output.shutdownOutput();
         } else {
