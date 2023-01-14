@@ -33,12 +33,15 @@ public class Reader extends AbstractActor<String> {
 
     @Override
     public void onReceive(String message, Result<Actor<String>> sender) {
-        if (transceiver) {
+        if (!transceiver) {
             input.readLines().forEach(line -> {
                 sender.forEach(c -> c.tell(line, writer));
             });
         } else {
-            input.readLines().forEach(line1 -> sender.forEach(actor -> actor.tell(line1 + "\u0004", writer)));
+            input.readLines().forEach(line -> {
+                sender.forEach(c -> c.tell(line, writer));
+                sender.forEach(actor -> actor.tell("\u0004", writer));
+            });
         }
     }
 }

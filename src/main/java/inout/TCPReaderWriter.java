@@ -16,8 +16,14 @@ public class TCPReaderWriter implements InputOutput {
     private final AbstractReader abstractReader;
     private final AbstractWriter abstractWriter;
 
-    public TCPReaderWriter(int port) throws IOException {
+    private TCPReaderWriter(int port) throws IOException {
         this.socket = new ServerSocket(port).accept();
+        this.abstractReader = new AbstractReader(new BufferedReader(new InputStreamReader(socket.getInputStream())));
+        this.abstractWriter = new AbstractWriter(new PrintWriter(socket.getOutputStream(), true));
+    }
+
+    private TCPReaderWriter(Socket socket) throws IOException {
+        this.socket = socket;
         this.abstractReader = new AbstractReader(new BufferedReader(new InputStreamReader(socket.getInputStream())));
         this.abstractWriter = new AbstractWriter(new PrintWriter(socket.getOutputStream(), true));
     }
@@ -29,10 +35,6 @@ public class TCPReaderWriter implements InputOutput {
         this.abstractReader = new AbstractReader((new BufferedReader(new InputStreamReader(socket.getInputStream()))));
     }
 
-    public static TCPReaderWriter tcpReaderWriter(Socket socket) throws IOException {
-        return tcpReaderWriter(socket.getPort());
-    }
-
     public static TCPReaderWriter tcpReaderWriter(int port) throws IOException {
         return new TCPReaderWriter(port);
     }
@@ -42,8 +44,11 @@ public class TCPReaderWriter implements InputOutput {
     }
 
     public static Callable<InputOutput> accept(int localPort) {
-
-        return () -> new TCPReaderWriter(localPort);
+        return () -> {
+            ServerSocket serverSocket = new ServerSocket(localPort);
+            Socket socket = serverSocket.accept();
+            return new TCPReaderWriter(socket);
+        };
     }
 
     public static Callable<InputOutput> connectTo(String remoteHost, int remotePort) throws IOException {
