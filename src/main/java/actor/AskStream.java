@@ -1,6 +1,5 @@
 package actor;
 
-import fpinjava.Result;
 import stream.Stream;
 
 import static actor.ActorReaderWriter.actorReaderWriter;

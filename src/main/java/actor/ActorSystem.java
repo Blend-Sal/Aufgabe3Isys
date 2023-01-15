@@ -34,9 +34,9 @@ public class ActorSystem {
     public static Runnable publish2multiple(Actor<String> actor, int port) throws Exception {
         return () -> {
             try {
-                Socket socket = new ServerSocket(port).accept();
+                ServerSocket serverSocket = new ServerSocket(port);
                 while (true) {
-
+                    Socket socket = serverSocket.accept();
                     TCPReaderWriter socketReaderWriter = new TCPReaderWriter(socket);
                     Writer transceiver = writer("server", socketReaderWriter, socketReaderWriter, Type.SERIAL, true);
                     transceiver.start(Result.success(actor));

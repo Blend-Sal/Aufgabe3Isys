@@ -1,14 +1,11 @@
 package echo.actor;
 
-import actor.ActorSystem;
-import actor.Writer;
+
 import inout.InputOutput;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import stream.Stream;
 
 
-import static actor.AskStream.ask;
 import static inout.ProcessReaderWriter.processReaderWriter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
