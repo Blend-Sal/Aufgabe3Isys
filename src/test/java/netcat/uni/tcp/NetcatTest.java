@@ -14,8 +14,8 @@ class NetcatTest {
     //ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/praktikum_jar/praktikum.jar", "-l", "5555");
     //ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/praktikum_jar/praktikum.jar", "localhost", "5555");
 
-    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-cp","target/classes", "netcat.uni.tcp.Netcat", "-l", "5555");
-    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-cp", "target/classes", "netcat.uni.tcp.Netcat", "localhost", "5555");
+    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-cp","target/classes", "netcat.uni.tcp.Netcat", "-l", "1870");
+    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-cp", "target/classes", "netcat.uni.tcp.Netcat", "localhost", "1870");
 
     @ParameterizedTest
     @ValueSource(strings = {"Nachrichten", "von", "Client", "zu", "Server"})
