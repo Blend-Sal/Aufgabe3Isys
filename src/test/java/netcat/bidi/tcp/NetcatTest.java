@@ -8,8 +8,6 @@ import static inout.ProcessReaderWriter.processReaderWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetcatTest {
-  // ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "-l", "7777");
-    // ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/BidiNetcat_jar/BidiNetcat.jar", "localhost", "7777");
 
     ProcessBuilder serverbuilder = new ProcessBuilder("java", "-cp","target/classes", "netcat.bidi.tcp.Netcat", "-l", "5555");
     ProcessBuilder clientbuilder = new ProcessBuilder("java", "-cp", "target/classes", "netcat.bidi.tcp.Netcat", "localhost", "5555");
