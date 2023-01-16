@@ -22,7 +22,7 @@ public class DistEchoActorTest {
         Process echoClient = clientBuilder.start();
         //Thread.sleep(2000);
         InputOutput processReaderWriter = processReaderWriter(echoClient);
-        //Thread.sleep(2000);
+
 
         processReaderWriter.printLine(s);
        // Thread.sleep(2000);
