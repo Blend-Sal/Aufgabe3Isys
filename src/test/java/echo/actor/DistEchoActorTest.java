@@ -15,7 +15,7 @@ public class DistEchoActorTest {
         //ProcessBuilder serverBuilder = new ProcessBuilder("java", "-jar", "out/artifacts/echoServer/echoServer.jar", "localhost", "1111");
         //ProcessBuilder clientBuilder = new ProcessBuilder("java", "-jar", "out/artifacts/echoClient/echoClient.jar", "localhost", "1111");
         ProcessBuilder serverBuilder = new ProcessBuilder("java", "-cp", "target/classes", "echo.actor.EchoServer", "localhost", "1111");
-        ProcessBuilder clientBuilder = new ProcessBuilder("java", "-cp", "target/classes", "echo.actor.EchoClient", "localhost", "1111");
+        ProcessBuilder clientBuilder = new ProcessBuilder("java", "-cp", "target/classes", "echo.actor.EchoClient", "localhost", "1111", s);
 
 
         Process echoServer = serverBuilder.start();
@@ -27,6 +27,7 @@ public class DistEchoActorTest {
         processReaderWriter.printLine(s);
        // Thread.sleep(2000);
         processReaderWriter.printLine("\u0004");
+
         Thread.sleep(1000);
 
 
