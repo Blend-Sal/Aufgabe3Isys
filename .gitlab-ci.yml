@@ -32,7 +32,7 @@ In2OutActor:
 DistEchoActor:
     stage: test
     script:
-      -mvn -Dtest=echo.actor.DistEchoActorTest test
+      - mvn -Dtest=echo.actor.DistEchoActorTest test
 
 #-Greeter:
  # stage: test
