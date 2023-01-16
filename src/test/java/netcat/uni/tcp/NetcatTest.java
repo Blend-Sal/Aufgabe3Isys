@@ -11,8 +11,11 @@ import static inout.ProcessWriter.processWriter;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NetcatTest {
-    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/praktikum_jar/praktikum.jar", "-l", "5555");
-    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/praktikum_jar/praktikum.jar", "localhost", "5555");
+    //ProcessBuilder serverbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/praktikum_jar/praktikum.jar", "-l", "5555");
+    //ProcessBuilder clientbuilder = new ProcessBuilder("java", "-jar", "out/artifacts/praktikum_jar/praktikum.jar", "localhost", "5555");
+
+    ProcessBuilder serverbuilder = new ProcessBuilder("java", "-cp","target/classes", "netcat.uni.tcp.Netcat", "-l", "5555");
+    ProcessBuilder clientbuilder = new ProcessBuilder("java", "-cp", "target/classes", "netcat.uni.tcp.Netcat", "localhost", "5555");
 
     @ParameterizedTest
     @ValueSource(strings = {"Nachrichten", "von", "Client", "zu", "Server"})
@@ -23,8 +26,8 @@ class NetcatTest {
 
         Input serverReader = processReader(server);
         Output clientWriter = processWriter(client);
-        clientWriter.print(str);
-        clientWriter.print("\u0004");
+        clientWriter.printLine(str);
+        clientWriter.printLine("\u0004");
         clientWriter.shutdownOutput();
 
         assertEquals(str, serverReader.readLines().head());

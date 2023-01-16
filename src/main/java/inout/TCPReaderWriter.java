@@ -52,8 +52,11 @@ public class TCPReaderWriter implements InputOutput {
     }
 
     public static Callable<InputOutput> connectTo(String remoteHost, int remotePort) throws IOException {
-        Socket socket = new Socket(remoteHost, remotePort);
-        return () -> new TCPReaderWriter(remoteHost, remotePort);
+
+        return () -> {
+            Socket socket = new Socket(remoteHost, remotePort);
+            return new TCPReaderWriter(socket);
+        };
     }
 
     @Override

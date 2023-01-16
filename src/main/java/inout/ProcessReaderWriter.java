@@ -15,7 +15,8 @@ public class ProcessReaderWriter implements InputOutput {
     }
 
     public static InputOutput processReaderWriter(Process process) {
-        return new ProcessReaderWriter(new AbstractReader(new BufferedReader(new InputStreamReader(process.getInputStream()))), new AbstractWriter(new PrintWriter(new OutputStreamWriter(process.getOutputStream()))));
+        return new ProcessReaderWriter(new AbstractReader(new BufferedReader(new InputStreamReader(process.getInputStream()))),
+                new AbstractWriter(new PrintWriter(process.getOutputStream(), true)));
     }
 
 

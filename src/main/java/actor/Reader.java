@@ -36,11 +36,13 @@ public class Reader extends AbstractActor<String> {
         if (!transceiver) {
             input.readLines().forEach(line -> {
                 sender.forEach(c -> c.tell(line, writer));
+
             });
         } else {
             input.readLines().forEach(line -> {
                 sender.forEach(c -> c.tell(line, writer));
                 sender.forEach(actor -> actor.tell("\u0004", writer));
+              //
             });
         }
     }
