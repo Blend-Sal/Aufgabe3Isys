@@ -12,6 +12,7 @@ public class DistEchoActorTest {
     @ParameterizedTest
     @CsvSource({"Test1", "Test2", "Test3"})
     public void DistEchoActorTest(String s) throws Exception {
+        Thread.sleep(500);
         //ProcessBuilder serverBuilder = new ProcessBuilder("java", "-jar", "out/artifacts/echoServer/echoServer.jar", "localhost", "1111");
         //ProcessBuilder clientBuilder = new ProcessBuilder("java", "-jar", "out/artifacts/echoClient/echoClient.jar", "localhost", "1111");
         ProcessBuilder serverBuilder = new ProcessBuilder("java", "-cp", "target/classes", "echo.actor.EchoServer", "localhost", "1111");
