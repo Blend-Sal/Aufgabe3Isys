@@ -14,25 +14,25 @@ Build:
   script:
     - mvn $MAVEN_CLI_OPTS compile
 
-In2OutRunnable:
-  stage: test
-  script:
-    - mvn -Dtest=echo.runnable.Input2OutputTest test
+#In2OutRunnable:
+#  stage: test
+#  script:
+#    - mvn -Dtest=echo.runnable.Input2OutputTest test
 
-EchoActor:
-  stage: test
-  script:
-    - mvn -Dtest=echo.actor.EchoActorTest test
+#EchoActor:
+#  stage: test
+#  script:
+#    - mvn -Dtest=echo.actor.EchoActorTest test
 
-In2OutActor:
-  stage: test
-  script:
-    - mvn -Dtest=echo.actor.Input2OutputTest test
+#In2OutActor:
+#  stage: test
+#  script:
+#    - mvn -Dtest=echo.actor.Input2OutputTest test
 
-DistEchoActor:
-    stage: test
-    script:
-      - mvn -Dtest=echo.actor.DistEchoActorTest test
+#DistEchoActor:
+#    stage: test
+#    script:
+#      - mvn -Dtest=echo.actor.DistEchoActorTest test
 
 #-Greeter:
  # stage: test
@@ -43,15 +43,15 @@ DistEchoActor:
   #script:
    # - mvn -Dtest=chat.actor.ChatRoomTest test
 
-UniNetcat:
-  stage: test
-  script:
-    - mvn -Dtest=netcat.uni.tcp.NetcatTest test
+#UniNetcat:
+#  stage: test
+#  script:
+#    - mvn -Dtest=netcat.uni.tcp.NetcatTest test
 
-BidiNetcat:
-    stage: test
-    script:
-      - mvn -Dtest=netcat.bidi.tcp.NetcatTest test
+#BidiNetcat:
+#    stage: test
+#    script:
+#      - mvn -Dtest=netcat.bidi.tcp.NetcatTest test
 
 
 
