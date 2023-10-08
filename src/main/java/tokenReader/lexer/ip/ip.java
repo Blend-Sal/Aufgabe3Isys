@@ -1,5 +1,5 @@
-package tokenReader.lexer;
-// Generated from times.g4 by ANTLR 4.13.1
+// Generated from ip.g4 by ANTLR 4.13.1
+package tokenReader.lexer.ip;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -10,14 +10,14 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
-public class times extends Lexer {
+public class ip extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		TIME=1, OTHER=2;
+		IP=1, OCTET=2, DIGIT=3, WS=4;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -28,7 +28,7 @@ public class times extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"TIME", "HOUR", "MIN", "DP", "OTHER"
+			"IP", "OCTET", "DIGIT", "WS"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -40,7 +40,7 @@ public class times extends Lexer {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "TIME", "OTHER"
+			null, "IP", "OCTET", "DIGIT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -78,13 +78,13 @@ public class times extends Lexer {
 	}
 
 
-	public times(CharStream input) {
+	public ip(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "times.g4"; }
+	public String getGrammarFileName() { return "ip.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -102,31 +102,37 @@ public class times extends Lexer {
 	public ATN getATN() { return _ATN; }
 
 	public static final String _serializedATN =
-		"\u0004\u0000\u0002\"\u0006\uffff\uffff\u0002\u0000\u0007\u0000\u0002\u0001"+
-		"\u0007\u0001\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004"+
-		"\u0007\u0004\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000"+
-		"\u0001\u0000\u0003\u0000\u0012\b\u0000\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0003\u0001\u0018\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004\u0001\u0004"+
-		"\u0000\u0000\u0005\u0001\u0001\u0003\u0000\u0005\u0000\u0007\u0000\t\u0002"+
-		"\u0001\u0000\u0005\u0001\u000001\u0001\u000009\u0001\u000022\u0001\u0000"+
-		"03\u0001\u000005 \u0000\u0001\u0001\u0000\u0000\u0000\u0000\t\u0001\u0000"+
-		"\u0000\u0000\u0001\u000b\u0001\u0000\u0000\u0000\u0003\u0017\u0001\u0000"+
-		"\u0000\u0000\u0005\u0019\u0001\u0000\u0000\u0000\u0007\u001c\u0001\u0000"+
-		"\u0000\u0000\t\u001e\u0001\u0000\u0000\u0000\u000b\f\u0003\u0003\u0001"+
-		"\u0000\f\r\u0003\u0007\u0003\u0000\r\u0011\u0003\u0005\u0002\u0000\u000e"+
-		"\u000f\u0003\u0007\u0003\u0000\u000f\u0010\u0003\u0005\u0002\u0000\u0010"+
-		"\u0012\u0001\u0000\u0000\u0000\u0011\u000e\u0001\u0000\u0000\u0000\u0011"+
-		"\u0012\u0001\u0000\u0000\u0000\u0012\u0002\u0001\u0000\u0000\u0000\u0013"+
-		"\u0014\u0007\u0000\u0000\u0000\u0014\u0018\u0007\u0001\u0000\u0000\u0015"+
-		"\u0016\u0007\u0002\u0000\u0000\u0016\u0018\u0007\u0003\u0000\u0000\u0017"+
-		"\u0013\u0001\u0000\u0000\u0000\u0017\u0015\u0001\u0000\u0000\u0000\u0018"+
-		"\u0004\u0001\u0000\u0000\u0000\u0019\u001a\u0007\u0004\u0000\u0000\u001a"+
-		"\u001b\u0007\u0001\u0000\u0000\u001b\u0006\u0001\u0000\u0000\u0000\u001c"+
-		"\u001d\u0005:\u0000\u0000\u001d\b\u0001\u0000\u0000\u0000\u001e\u001f"+
-		"\t\u0000\u0000\u0000\u001f \u0001\u0000\u0000\u0000 !\u0006\u0004\u0000"+
-		"\u0000!\n\u0001\u0000\u0000\u0000\u0003\u0000\u0011\u0017\u0001\u0006"+
-		"\u0000\u0000";
+		"\u0004\u0000\u0004+\u0006\uffff\uffff\u0002\u0000\u0007\u0000\u0002\u0001"+
+		"\u0007\u0001\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0001\u0000"+
+		"\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000"+
+		"\u0001\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0003\u0001\u001e\b\u0001\u0001\u0001\u0003\u0001!\b\u0001"+
+		"\u0001\u0002\u0001\u0002\u0001\u0003\u0004\u0003&\b\u0003\u000b\u0003"+
+		"\f\u0003\'\u0001\u0003\u0001\u0003\u0000\u0000\u0004\u0001\u0001\u0003"+
+		"\u0002\u0005\u0003\u0007\u0004\u0001\u0000\u0002\u0001\u000009\u0003\u0000"+
+		"\t\n\r\r  0\u0000\u0001\u0001\u0000\u0000\u0000\u0000\u0003\u0001\u0000"+
+		"\u0000\u0000\u0000\u0005\u0001\u0000\u0000\u0000\u0000\u0007\u0001\u0000"+
+		"\u0000\u0000\u0001\t\u0001\u0000\u0000\u0000\u0003 \u0001\u0000\u0000"+
+		"\u0000\u0005\"\u0001\u0000\u0000\u0000\u0007%\u0001\u0000\u0000\u0000"+
+		"\t\n\u0003\u0003\u0001\u0000\n\u000b\u0005.\u0000\u0000\u000b\f\u0003"+
+		"\u0003\u0001\u0000\f\r\u0005.\u0000\u0000\r\u000e\u0003\u0003\u0001\u0000"+
+		"\u000e\u000f\u0005.\u0000\u0000\u000f\u0010\u0003\u0003\u0001\u0000\u0010"+
+		"\u0002\u0001\u0000\u0000\u0000\u0011\u0012\u00052\u0000\u0000\u0012\u0013"+
+		"\u00055\u0000\u0000\u0013!\u000205\u0000\u0014\u0015\u00052\u0000\u0000"+
+		"\u0015\u0016\u000204\u0000\u0016!\u0003\u0005\u0002\u0000\u0017\u0018"+
+		"\u00051\u0000\u0000\u0018\u0019\u0003\u0005\u0002\u0000\u0019\u001a\u0003"+
+		"\u0005\u0002\u0000\u001a!\u0001\u0000\u0000\u0000\u001b\u001d\u000209"+
+		"\u0000\u001c\u001e\u0003\u0005\u0002\u0000\u001d\u001c\u0001\u0000\u0000"+
+		"\u0000\u001d\u001e\u0001\u0000\u0000\u0000\u001e!\u0001\u0000\u0000\u0000"+
+		"\u001f!\u00050\u0000\u0000 \u0011\u0001\u0000\u0000\u0000 \u0014\u0001"+
+		"\u0000\u0000\u0000 \u0017\u0001\u0000\u0000\u0000 \u001b\u0001\u0000\u0000"+
+		"\u0000 \u001f\u0001\u0000\u0000\u0000!\u0004\u0001\u0000\u0000\u0000\""+
+		"#\u0007\u0000\u0000\u0000#\u0006\u0001\u0000\u0000\u0000$&\u0007\u0001"+
+		"\u0000\u0000%$\u0001\u0000\u0000\u0000&\'\u0001\u0000\u0000\u0000\'%\u0001"+
+		"\u0000\u0000\u0000\'(\u0001\u0000\u0000\u0000()\u0001\u0000\u0000\u0000"+
+		")*\u0006\u0003\u0000\u0000*\b\u0001\u0000\u0000\u0000\u0004\u0000\u001d"+
+		" \'\u0001\u0006\u0000\u0000";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

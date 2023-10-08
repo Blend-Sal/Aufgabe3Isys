@@ -1,0 +1,3 @@
+ipExample(ip) ::= <<
+<ip;separator="\t">
+>>

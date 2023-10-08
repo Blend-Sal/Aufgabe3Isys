@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
-import tokenReader.lexer.times;
+import tokenReader.lexer.times.times;
 
 
-public class TokenReaderTest {
+public class TimesTest {
 
     private static Function<Token, Function<Supplier<ST>, ST>> f = token -> stSupplier -> {
         ST st = stSupplier.get();
-        st.add("clock", token.getText());
+        st.add("times", token.getText());
         return st;
     };
 
@@ -24,13 +24,13 @@ public class TokenReaderTest {
     @Test
     public void timesTest() {
 
-        STGroup templates = new STGroupFile("src/main/java/tokenReader/lexer/times.stg");
+        STGroup templates = new STGroupFile("src/main/java/tokenReader/lexer/times/times.stg");
 
-        Result<AntlrInput<Token>> rTokenReader = TokenReader.lexFile("src/main/java/tokenReader/lexer/times_ex.txt", times::new);
+        Result<AntlrInput<Token>> rTokenReader = TokenReader.lexFile("src/main/java/tokenReader/lexer/times/times_ex.txt", times::new);
 
         Result<ST> rst = rTokenReader.map(tr -> tr.stream()
                 .filter(t -> t.getType() == times.TIME)
-                .foldr(() -> templates.getInstanceOf("clockExample"), f));
+                .foldr(() -> templates.getInstanceOf("timesExample"), f));
 
         rst.forEach(st -> System.out.println(st.render()));
     }

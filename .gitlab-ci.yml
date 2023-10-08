@@ -18,8 +18,12 @@ Build:
 TimesTest:
   stage: test
   script:
-      - mvn -Dtest=tokenReader.TokenReaderTest test
+      - mvn -Dtest=tokenReader.TimesTest test
 
+IpTest:
+  stage: test
+  script:
+    - mvn -Dtest=tokenReader.IpTest test
 #In2OutRunnable:
 #  stage: test
 #  script:
