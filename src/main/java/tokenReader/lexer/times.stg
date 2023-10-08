@@ -1,0 +1,3 @@
+timesExample(times) ::= <<
+<times;separator="\t">
+>>

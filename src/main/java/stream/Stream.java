@@ -5,6 +5,8 @@ import inout.Input;
 import list.List;
 import tuple.Tuple;
 
+import static stream.Stream.Cons.empty;
+
 
 public abstract class Stream<A> {
     private static Stream EMPTY = new Empty();
@@ -54,7 +56,7 @@ public abstract class Stream<A> {
         }
     }
 
-    private static class Cons<A> extends Stream<A> {
+    static class Cons<A> extends Stream<A> {
         private final Supplier<A> head;
         private final Supplier<Stream<A>> tail;
 
@@ -114,6 +116,18 @@ public abstract class Stream<A> {
 
     static <A> Stream<A> cons(Supplier<A> hd, Supplier<Stream<A>> tl) {
         return new Cons<>(hd, tl);
+    }
+
+    public Stream<A> filter(Function<A, Boolean> p) {
+        return isEmpty() ? empty() : p.apply(head()) ? cons(this::head, () -> tail().filter(p)) : tail().filter(p);
+    }
+
+    public <B> B foldr(Supplier<B> z, Function<A, Function<Supplier<B>, B>> f) {
+        if (isEmpty()) {
+            return z.get();
+        } else {
+            return f.apply(head()).apply(() -> tail().foldr(z, f));
+        }
     }
 
 
