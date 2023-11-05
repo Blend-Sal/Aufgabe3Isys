@@ -24,6 +24,21 @@ IpTest:
   stage: test
   script:
     - mvn -Dtest=tokenReader.IpTest test
+
+G6Test:
+  stage: test
+  script:
+    - mvn -Dtest=G6.G6Test test
+
+ExpritTest:
+  stage: test
+  script:
+    - mvn -Dtest=exprit.ExpritTest test
+
+ExprTest:
+  stage: test
+  script:
+    - mvn -Dtest=expr.ExprTest test
 #In2OutRunnable:
 #  stage: test
 #  script:

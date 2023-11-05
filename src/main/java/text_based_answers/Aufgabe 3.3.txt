@@ -1,0 +1,4 @@
+3.3.1: Die Grammatik ist vom Chomsky-Typ 2, da alle Produktionen entweder ein Terminalsymbol auf der rechten Seite oder zwei Nicht-Terminale haben.
+3.3.2: Sie ist eindeutig, weil jede mögliche Eingabe genau eine Ableitung hat.
+3.3.3: rechtsrekursiv: prog, expr -> (expr); linkrekursiv: expr -> +,-,*,/; nicht rekursiv: expr -> int
+3.3.4: Alle Operatoren sind linksassoziativ. Priorität = () > * , / > +, -

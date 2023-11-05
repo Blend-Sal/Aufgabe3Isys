@@ -1,0 +1,8 @@
+3.1: Es ist eine Typ 2 Grammatik, weil die anderen Typen keine Rekursion unterstützen.
+3.2: Die Grammatik ist eindeutig, da jede Regel genau eine Aktion definiert, die ausgeführt werden soll. Es gibt keine mehrdeutigen Regeln.
+3.3:
+prog = linksrekursiv, stat = linksrekursiv, expr = rechtsrekursiv, term = rechtsrekursiv, fact = nicht rekursiv
+3.4: Multiplikation (*) und Division (/) = linksassoziativ, Addition (+) und Subtraktion (-) = linksassoziativ
+     Die Priorität ist wie folgt: Klammern (( )) haben die höchste Priorität, gefolgt von Multiplikation und Division (von links nach rechts), gefolgt von Addition und Subtraktion (von links nach rechts).
+
+

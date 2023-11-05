@@ -1,0 +1,4 @@
+3.2.1: Chomsky Typ 2
+3.2.2: Die ist Eindeutig, da jede Regel genau eine Aktion definiert, die ausgeführt werden soll.
+3.2.3: prog: nicht rekursiv, stat: nicht rekursiv, expr: nicht rekursiv, term: iterativ, fact: rechtsrekursiv
+3.2.4: '+', '-', '*' und '/' sind links - assoziativ. Priorität: als erstes sind '*', '/' und 'term', danach '+', '-' und 'expr'
