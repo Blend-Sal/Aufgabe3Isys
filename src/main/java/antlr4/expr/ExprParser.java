@@ -29,7 +29,7 @@ public class ExprParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'\\n'", "'+'", "'-'", "'*'", "'/'", "'('", "')'"
+			null, "'\\n'", "'('", "')'", "'*'", "'/'", "'+'", "'-'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -121,7 +121,7 @@ public class ExprParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__0:
-			case T__5:
+			case T__1:
 			case INT:
 				enterOuterAlt(_localctx, 1);
 				{
@@ -138,7 +138,7 @@ public class ExprParser extends Parser {
 					setState(9); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 322L) != 0) );
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & 262L) != 0) );
 				}
 				break;
 			case EOF:
@@ -189,7 +189,7 @@ public class ExprParser extends Parser {
 			setState(18);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__5:
+			case T__1:
 			case INT:
 				enterOuterAlt(_localctx, 1);
 				{
@@ -268,14 +268,14 @@ public class ExprParser extends Parser {
 				match(INT);
 				}
 				break;
-			case T__5:
+			case T__1:
 				{
 				setState(22);
-				match(T__5);
+				match(T__1);
 				setState(23);
 				expr(0);
 				setState(24);
-				match(T__6);
+				match(T__2);
 				}
 				break;
 			default:
@@ -298,11 +298,11 @@ public class ExprParser extends Parser {
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(28);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
 						setState(29);
-						match(T__1);
+						match(T__3);
 						setState(30);
-						expr(6);
+						expr(5);
 						}
 						break;
 					case 2:
@@ -310,11 +310,11 @@ public class ExprParser extends Parser {
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(31);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
 						setState(32);
-						match(T__2);
+						match(T__4);
 						setState(33);
-						expr(5);
+						expr(4);
 						}
 						break;
 					case 3:
@@ -322,11 +322,11 @@ public class ExprParser extends Parser {
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(34);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
 						setState(35);
-						match(T__3);
+						match(T__5);
 						setState(36);
-						expr(4);
+						expr(3);
 						}
 						break;
 					case 4:
@@ -334,11 +334,11 @@ public class ExprParser extends Parser {
 						_localctx = new ExprContext(_parentctx, _parentState);
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(37);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 						setState(38);
-						match(T__4);
+						match(T__6);
 						setState(39);
-						expr(3);
+						expr(2);
 						}
 						break;
 					}
@@ -371,13 +371,13 @@ public class ExprParser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 5);
-		case 1:
 			return precpred(_ctx, 4);
-		case 2:
+		case 1:
 			return precpred(_ctx, 3);
-		case 3:
+		case 2:
 			return precpred(_ctx, 2);
+		case 3:
+			return precpred(_ctx, 1);
 		}
 		return true;
 	}
@@ -402,14 +402,14 @@ public class ExprParser extends Parser {
 		"\u0001\u0000\u0000\u0012\u000e\u0001\u0000\u0000\u0000\u0012\u0011\u0001"+
 		"\u0000\u0000\u0000\u0013\u0003\u0001\u0000\u0000\u0000\u0014\u0015\u0006"+
 		"\u0002\uffff\uffff\u0000\u0015\u001b\u0005\b\u0000\u0000\u0016\u0017\u0005"+
-		"\u0006\u0000\u0000\u0017\u0018\u0003\u0004\u0002\u0000\u0018\u0019\u0005"+
-		"\u0007\u0000\u0000\u0019\u001b\u0001\u0000\u0000\u0000\u001a\u0014\u0001"+
+		"\u0002\u0000\u0000\u0017\u0018\u0003\u0004\u0002\u0000\u0018\u0019\u0005"+
+		"\u0003\u0000\u0000\u0019\u001b\u0001\u0000\u0000\u0000\u001a\u0014\u0001"+
 		"\u0000\u0000\u0000\u001a\u0016\u0001\u0000\u0000\u0000\u001b*\u0001\u0000"+
-		"\u0000\u0000\u001c\u001d\n\u0005\u0000\u0000\u001d\u001e\u0005\u0002\u0000"+
-		"\u0000\u001e)\u0003\u0004\u0002\u0006\u001f \n\u0004\u0000\u0000 !\u0005"+
-		"\u0003\u0000\u0000!)\u0003\u0004\u0002\u0005\"#\n\u0003\u0000\u0000#$"+
-		"\u0005\u0004\u0000\u0000$)\u0003\u0004\u0002\u0004%&\n\u0002\u0000\u0000"+
-		"&\'\u0005\u0005\u0000\u0000\')\u0003\u0004\u0002\u0003(\u001c\u0001\u0000"+
+		"\u0000\u0000\u001c\u001d\n\u0004\u0000\u0000\u001d\u001e\u0005\u0004\u0000"+
+		"\u0000\u001e)\u0003\u0004\u0002\u0005\u001f \n\u0003\u0000\u0000 !\u0005"+
+		"\u0005\u0000\u0000!)\u0003\u0004\u0002\u0004\"#\n\u0002\u0000\u0000#$"+
+		"\u0005\u0006\u0000\u0000$)\u0003\u0004\u0002\u0003%&\n\u0001\u0000\u0000"+
+		"&\'\u0005\u0007\u0000\u0000\')\u0003\u0004\u0002\u0002(\u001c\u0001\u0000"+
 		"\u0000\u0000(\u001f\u0001\u0000\u0000\u0000(\"\u0001\u0000\u0000\u0000"+
 		"(%\u0001\u0000\u0000\u0000),\u0001\u0000\u0000\u0000*(\u0001\u0000\u0000"+
 		"\u0000*+\u0001\u0000\u0000\u0000+\u0005\u0001\u0000\u0000\u0000,*\u0001"+

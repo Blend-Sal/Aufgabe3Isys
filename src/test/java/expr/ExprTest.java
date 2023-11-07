@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 public class ExprTest {
     @ParameterizedTest
-    @CsvSource("'(prog (stat (expr (expr (expr 10) * (expr 2)) / (expr (expr 2) + (expr 4))) \\n))'")
+    @CsvSource("'(prog (stat (expr (expr (expr (expr 10) * (expr 2)) / (expr 2)) + (expr 4)) \\n))'")
     public void expritTest(String str) {
         CharStream input = CharStreams.fromString("10 * 2 / 2 + 4 \n");
         ExprLexer lexer = new ExprLexer(input);
