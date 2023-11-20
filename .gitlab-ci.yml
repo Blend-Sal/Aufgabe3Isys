@@ -43,7 +43,7 @@ ExprTest:
 ParseTreeVisitorTest:
   stage: test
   script:
-    - mvn -Dtest=calculators.parseTreeVisitorTest.parseTreeVisitor test
+    - mvn -Dtest=calculators.parseTreeVisitor.parseTreeVisitorTest test
 
 GrammarActionsTest:
   stage: test
