@@ -39,6 +39,21 @@ ExprTest:
   stage: test
   script:
     - mvn -Dtest=expr.ExprTest test
+
+ParseTreeVisitorTest:
+  stage: test
+  script:
+    - mvn -Dtest=calculators.parseTreeVisitorTest.parseTreeVisitor test
+
+GrammarActionsTest:
+  stage: test
+  script:
+    - mvn -Dtest=calculators.grammarActions.GrammarActionsTest test
+
+pTListener:
+  stage: test
+  script:
+    - mvn -Dtest=calculators.pTListener.PTListenerTest test
 #In2OutRunnable:
 #  stage: test
 #  script:
