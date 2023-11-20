@@ -1,0 +1,22 @@
+4.1.1:
+prog → stat+ prog.v = stat.v
+stat → expr n stat.v = expr.v
+expr → int expr.v = int.v
+expr → expr + expr expr.v = expr.v + expr.v
+expr → expr - expr expr.v = expr.v - expr.v
+expr → expr * expr expr.v = expr.v * expr.v
+expr → expr / expr expr.v = expr.v / expr.v
+expr → (expr) expr.v = expr.v
+4.1.2:
+Alle Attribute sind synthetisiert, weil sie während der Bottom-Up Analyse ermittelt werden.
+4.1.3:
+Sie ist S-attributiert, da die Attribute an die linken Kanten des Parse-Baums gebunden sind. Dies ist in ANTLR4 der Standard.
+4.1.5:
+prog -> stat+ {prog.v -> stat.v}
+stat -> expr n {stat.v -> expr.v}
+expr -> int {expr.v -> int.v}
+expr -> '(' expr ')' {expr.v -> expr1.v}
+expr -> expr ('*' | '/') expr {expr.v -> expr1.v / expr2.v}
+                              {expr.v -> expr1.v * expr2.v}
+expr -> expr ('+' | '-') expr {expr.v -> expr1.v + expr2.v}
+                              {expr.v -> expr1.v - expr2.v}
