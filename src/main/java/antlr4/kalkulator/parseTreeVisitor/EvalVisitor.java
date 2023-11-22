@@ -89,4 +89,14 @@ public class EvalVisitor extends LabeledExprBaseVisitor<Integer> {
         return value;
     }
 
+    @Override
+    public Integer visitIfElse(LabeledExprParser.IfElseContext ctx) {
+
+        boolean condition = visit(ctx.expr()) > 0;
+        boolean elseConExists = ctx.ELSE() != null;
+
+        return condition ? visit(ctx.stat(0)) : !elseConExists ? 0 : visit(ctx.stat(1));
+    }
+
+
 }

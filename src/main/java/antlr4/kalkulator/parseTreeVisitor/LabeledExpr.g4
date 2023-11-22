@@ -5,25 +5,31 @@ grammar LabeledExpr;
 
 prog : stat+ EOF;
 
-stat : expr ASSIGN ID '\n' #assign
-    | expr '\n' #printExpr
-    | '\n' #blank
-    ;
-expr : INT              #int
-   | '(' expr ')'       #parens
-   | <assoc=right>expr op='^' expr #Exponentiation
-   | expr op=('*' | '/') expr #MulDiv
-   | expr op=('+' | '-') expr #AddSub
-   | expr op=('==' | '<' | '>') expr #Compare
-   | expr op=('?' | ':') expr #Conditional
-   | ID               #id
+stat: expr '\n'                           # printExpr
+   | ID '=' expr '\n'                    # assign
+   | '\n'                               # blank
+   | 'clear'                             # clear
+   | 'if' '(' expr ')' stat ('else' stat {$expr.v == 0}? )? # ifElse
    ;
+
+expr : ID              #id
+  | INT             #int
+  | '(' expr ')'      #parens
+  | <assoc=right>expr op='^' expr #Exponentiation
+  | expr op=('*' | '/') expr #MulDiv
+  | expr op=('+' | '-') expr #AddSub
+  | expr op=('==' | '<' | '>') expr #Compare
+  | expr op=('?' | ':') expr #Conditional
+  ;
+
 
 MUL: '*';
 DIV: '/';
 ADD: '+';
 SUB: '-';
 POW: '^';
+IF: 'if';
+ELSE: 'else';
 EQUAL: '==';
 LESS: '<';
 GREATER: '>';

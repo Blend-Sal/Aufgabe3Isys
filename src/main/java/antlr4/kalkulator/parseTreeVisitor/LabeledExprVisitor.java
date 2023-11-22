@@ -18,13 +18,6 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(LabeledExprParser.ProgContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code assign}
-	 * labeled alternative in {@link LabeledExprParser#stat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssign(LabeledExprParser.AssignContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code printExpr}
 	 * labeled alternative in {@link LabeledExprParser#stat}.
 	 * @param ctx the parse tree
@@ -32,12 +25,33 @@ public interface LabeledExprVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPrintExpr(LabeledExprParser.PrintExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code assign}
+	 * labeled alternative in {@link LabeledExprParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign(LabeledExprParser.AssignContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code blank}
 	 * labeled alternative in {@link LabeledExprParser#stat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitBlank(LabeledExprParser.BlankContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code clear}
+	 * labeled alternative in {@link LabeledExprParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitClear(LabeledExprParser.ClearContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ifElse}
+	 * labeled alternative in {@link LabeledExprParser#stat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfElse(LabeledExprParser.IfElseContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code parens}
 	 * labeled alternative in {@link LabeledExprParser#expr}.

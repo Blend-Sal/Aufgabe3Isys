@@ -18,7 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PTListenerTest {
     @ParameterizedTest
-    @CsvSource(value = {"'5+2\n 2*2\n', '7\n4\n'", "'3+7\n1+2\n', '10\n3\n'", "'3-7*2\n', '-11\n'", "'2^2*2\n', '8\n'", "'3<5^2\n', '1\n'", "'2^8<10\n', '0\n'"}, delimiter = ',')
+    @CsvSource(value = {"'5+2\n 2*2\n', '7\n4\n'", "'3+7\n1+2\n', '10\n3\n'", "'3-7*2\n', '-11\n'", "'2^2*2\n', '8\n'", "'3<5^2\n', '1\n'",
+            "'2^8<10\n', '0\n'"}, delimiter = ',')
     public void test(String input, String output) {
         CharStream inputStream = CharStreams.fromString(input);
         pTListenerLexer lexer = new pTListenerLexer(inputStream);
