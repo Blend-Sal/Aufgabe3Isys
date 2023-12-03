@@ -54,6 +54,11 @@ pTListener:
   stage: test
   script:
     - mvn -Dtest=calculators.pTListener.PTListenerTest test
+
+callGraphTest:
+  stage: test
+  script:
+    - mvn -Dtest=graph.CallGraphTest.graphTest test
 #In2OutRunnable:
 #  stage: test
 #  script:

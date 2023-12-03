@@ -1,0 +1,39 @@
+digraph G {
+        ranksep=.25;
+        edge [arrowsize.5]
+        node [shape=circle, fontname="ArialNarrow"],
+        fontsize=12, fixedsize=true, height=.45
+        main [color = black];identity [color = black];add [color = cyan];add2 [color = cyan];sum [color = orange];sum2 [color = orange];binomi [color = black];fact [color = orange];ggT [color = cyan];kgV [color = black];fib [color = orange];mcCarthy [color = orange];ackermann [color = orange];collatz [color = orange];
+        main -> sum; 
+        main -> sum2; 
+        main -> binomi; 
+        main -> fib; 
+        main -> kgV; 
+        main -> ackermann; 
+        main -> mcCarthy; 
+        add -> identity; 
+        add -> add [color = cyan]; 
+        add2 -> add2 [color = cyan]; 
+        add2 -> identity; 
+        sum -> sum [color = orange]; 
+        sum -> add; 
+        sum2 -> sum2 [color = orange]; 
+        sum2 -> add2; 
+        binomi -> fact; 
+        binomi -> fact; 
+        binomi -> fact; 
+        fact -> fact [color = orange]; 
+        ggT -> ggT [color = cyan]; 
+        ggT -> ggT [color = cyan]; 
+        kgV -> ggT; 
+        fib -> fib [color = orange]; 
+        fib -> fib [color = orange]; 
+        mcCarthy -> mcCarthy [color = orange]; 
+        mcCarthy -> mcCarthy [color = cyan]; 
+        ackermann -> ackermann [color = cyan]; 
+        ackermann -> ackermann [color = orange]; 
+        ackermann -> ackermann [color = cyan]; 
+        collatz -> even; 
+        collatz -> collatz [color = orange]; 
+        collatz -> collatz [color = orange]; 
+}
