@@ -58,7 +58,7 @@ pTListener:
 callGraphTest:
   stage: test
   script:
-    - mvn -Dtest=graph.CallGraphTest.graphTest test
+    - mvn -Dtest=graph.CallGraphTest test
 #In2OutRunnable:
 #  stage: test
 #  script:
