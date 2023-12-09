@@ -1,10 +1,13 @@
-callGraph(edges, nodes) ::=<<
+callGraph(nodes_ER, nodes_R, nodes_Default, edgePairs_ER, edgePairs_R, edgePairs_Default) ::=<<
 digraph G {
-        ranksep=.25;
-        edge [arrowsize.5]
-        node [shape=circle, fontname="ArialNarrow"],
-        fontsize=12, fixedsize=true, height=.45
-        <edges :{edge | <edge>;}>
-        <nodes.keys:{str1 | <nodes.(str1) :{str2 | <str1> -> <str2>; }; separator="\n">}; separator="\n">
-}
+ ranksep=.25;
+ edge [arrowsize=.5]
+ node [shape=circle, fontname="ArialNarrow",
+ fontsize=12, fixedsize=true, height=.45];
+<nodes_ER:{f | <f> [color="cyan"] }; separator=";">
+<nodes_R:{f | <f> [color="orange"] }; separator=";">
+<nodes_Default: {f | <f> }; separator=";">
+<edgePairs_ER: {edge | <edge.a> -> <edge.b> [color="cyan"]}; separator ="\n">
+<edgePairs_R: {edge | <edge.a> -> <edge.b> [color="orange"]}; separator ="\n">
+<edgePairs_Default: {edge | <edge.a> -> <edge.b> }; separator="\n">
 >>

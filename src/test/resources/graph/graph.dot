@@ -1,0 +1,40 @@
+digraph G {
+ranksep=.25;
+edge [arrowsize=.5]
+node [shape=circle, fontname="ArialNarrow",
+fontsize=12, fixedsize=true, height=.45];
+add [color="cyan"] ;add2 [color="cyan"] ;ggT [color="cyan"] ;mcCarthy [color="cyan"] ;ackermann [color="cyan"]
+sum [color="orange"] ;sum2 [color="orange"] ;fact [color="orange"] ;fib [color="orange"] ;mcCarthy [color="orange"] ;ackermann [color="orange"] ;collatz [color="orange"]
+main ;identity ;add ;add2 ;sum ;sum2 ;binomi ;fact ;ggT ;kgV ;fib ;mcCarthy ;ackermann ;collatz
+add -> add [color="cyan"]
+add2 -> add2 [color="cyan"]
+ggT -> ggT [color="cyan"]
+ggT -> ggT [color="cyan"]
+mcCarthy -> mcCarthy [color="cyan"]
+ackermann -> ackermann [color="cyan"]
+ackermann -> ackermann [color="cyan"]
+sum -> sum [color="orange"]
+sum2 -> sum2 [color="orange"]
+fact -> fact [color="orange"]
+fib -> fib [color="orange"]
+fib -> fib [color="orange"]
+mcCarthy -> mcCarthy [color="orange"]
+ackermann -> ackermann [color="orange"]
+collatz -> collatz [color="orange"]
+collatz -> collatz [color="orange"]
+main -> sum
+main -> sum2
+main -> binomi
+main -> fib
+main -> kgV
+main -> ackermann
+main -> mcCarthy
+add -> identity
+add2 -> identity
+sum -> add
+sum2 -> add2
+binomi -> fact
+binomi -> fact
+binomi -> fact
+kgV -> ggT
+collatz -> even}
