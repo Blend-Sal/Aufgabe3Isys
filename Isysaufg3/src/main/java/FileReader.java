@@ -18,6 +18,7 @@ public class FileReader extends java.io.FileReader {
             String line;
             while ((line = br.readLine()) != null) {
                 // Trennen Sie das Label und die Sequenz
+
                 String[] parts = line.split(" +", 2);
                 String label = parts[0];
                 List<String> sequence = Arrays.asList(parts[1].split(" +"));

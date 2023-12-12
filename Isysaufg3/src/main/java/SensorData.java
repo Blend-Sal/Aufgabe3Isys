@@ -43,7 +43,7 @@ public class SensorData {
         this.favorable = favorable;
     }
 
-    public String toString(){
+    public String toString() {
         return String.format("(%s | %s)", this.label, this.sequence);
     }
 }
