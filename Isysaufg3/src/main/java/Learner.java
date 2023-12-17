@@ -124,22 +124,22 @@ public class Learner {
     }
 
     public double multiplyWithTable(List<String> sequence, boolean favorable) {
-        double res = 1.0;
+        double res = 0.0;
         double[][] table = probabilityTable(this, favorable);
-        for (int i = 0; i < sequence.size() - 1; i++) {
-            int first = -1;
+        for (int i = 1; i < sequence.size(); i++) {
+            int current = -1;
             switch(sequence.get(i)) {
-                case "m" -> first = 0;
-                case "n" -> first = 1;
-                case "h" -> first = 2;
+                case "m" -> current = 0;
+                case "n" -> current = 1;
+                case "h" -> current = 2;
             }
-            int second = -1;
-            switch(sequence.get(i + 1)) {
-                case "m" -> second = 0;
-                case "n" -> second = 1;
-                case "h" -> second = 2;
+            int last = -1;
+            switch(sequence.get(i - 1)) {
+                case "m" -> last = 0;
+                case "n" -> last = 1;
+                case "h" -> last = 2;
             }
-            res *= table[first][second];
+            res += Math.log(table[last][current]);
 
         }
         return res;
@@ -158,19 +158,16 @@ public class Learner {
         }
         return result;
     }
-    public int evaluateAll() {
+    public String evaluateAll() {
         int result = 0;
         int corrects = 0;
-        List<Integer> wrong = new LinkedList<>();
         for (int i = 0; i < this.getEvalData().size(); i++) {
             result += evaluate(i);
             if (evaluate(i) == 20 || evaluate(i) == -1) {
                 corrects++;
-            } else {
-                wrong.add(i);
             }
         }
-        return corrects;
+        return String.format("Correct guesses: %d, Total profit: %d", corrects, result);
     }
 
 
