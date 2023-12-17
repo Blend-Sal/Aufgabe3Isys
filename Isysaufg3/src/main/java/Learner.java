@@ -105,7 +105,7 @@ public class Learner {
         for (int i = 0; i < frequencyTable.length; i++) {
             double sum = frequencyTable[i][0] + frequencyTable[i][1] + frequencyTable[i][2];
             for (int j = 0; j < frequencyTable[i].length; j++) {
-                probabilityTable[i][j] = frequencyTable[i][j] / sum;
+                probabilityTable[i][j] = Math.log(frequencyTable[i][j] / sum);
             }
         }
 
@@ -139,7 +139,7 @@ public class Learner {
                 case "n" -> last = 1;
                 case "h" -> last = 2;
             }
-            res += Math.log(table[last][current]);
+            res += table[last][current];
 
         }
         return res;
@@ -147,8 +147,8 @@ public class Learner {
 
     public int evaluate(int n) {
         int result;
-        boolean sow = multiplyWithTable(this.getEvalData().get(n).getSequence(), true)
-                > multiplyWithTable(this.getEvalData().get(n).getSequence(), false);
+        boolean sow = Math.log(0.1) + multiplyWithTable(this.getEvalData().get(n).getSequence(), true)
+                > Math.log(0.9) + multiplyWithTable(this.getEvalData().get(n).getSequence(), false);
         boolean favorable = this.getEvalData().get(n).favorable;
 
         if (sow) {
