@@ -7,7 +7,7 @@ public class SensorData {
 
     SensorData(String label, List<String> sequence) {
         this.label = label;
-        if (this.label.equalsIgnoreCase("G")) {
+        if (this.label.trim().equalsIgnoreCase("G")) {
             this.favorable = true;
         }
         this.sequence = sequence;

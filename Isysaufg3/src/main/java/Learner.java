@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Learner {
     private final List<SensorData> trainData;
+    private List<SensorData> evalData;
 
     private Learner(List<SensorData> trainData) {
         this.trainData = trainData;
@@ -10,6 +12,18 @@ public class Learner {
 
     public static Learner learner(List<SensorData> trainData) {
         return new Learner(trainData);
+    }
+
+    public List<SensorData> getTrainData() {
+        return trainData;
+    }
+
+    public List<SensorData> getEvalData() {
+        return evalData;
+    }
+
+    public void setEvalData(List<SensorData> evalData) {
+        this.evalData = evalData;
     }
 
     public List<SensorData> getGData() {
@@ -89,9 +103,9 @@ public class Learner {
         double[][] probabilityTable = new double[3][3];
         int[][] frequencyTable = favorable ? frequencyTable(learner.getGData()) : frequencyTable(learner.getUData());
         for (int i = 0; i < frequencyTable.length; i++) {
-            int sum = frequencyTable[i][0] + frequencyTable[i][1] + frequencyTable[i][2];
+            double sum = frequencyTable[i][0] + frequencyTable[i][1] + frequencyTable[i][2];
             for (int j = 0; j < frequencyTable[i].length; j++) {
-                probabilityTable[i][j] = (float) frequencyTable[i][j] / sum;
+                probabilityTable[i][j] = frequencyTable[i][j] / sum;
             }
         }
 
@@ -107,6 +121,56 @@ public class Learner {
     public static String print3DTable(int[][] arr) {
 
         return String.format("[%d, %d, %d]%n[%d, %d, %d]%n[%d, %d, %d]", arr[0][0], arr[0][1], arr[0][2], arr[1][0], arr[1][1], arr[1][2], arr[2][0], arr[2][1], arr[2][2]);
+    }
+
+    public double multiplyWithTable(List<String> sequence, boolean favorable) {
+        double res = 1.0;
+        double[][] table = probabilityTable(this, favorable);
+        for (int i = 0; i < sequence.size() - 1; i++) {
+            int first = -1;
+            switch(sequence.get(i)) {
+                case "m" -> first = 0;
+                case "n" -> first = 1;
+                case "h" -> first = 2;
+            }
+            int second = -1;
+            switch(sequence.get(i + 1)) {
+                case "m" -> second = 0;
+                case "n" -> second = 1;
+                case "h" -> second = 2;
+            }
+            res *= table[first][second];
+
+        }
+        return res;
+    }
+
+    public int evaluate(int n) {
+        int result;
+        boolean sow = multiplyWithTable(this.getEvalData().get(n).getSequence(), true)
+                > multiplyWithTable(this.getEvalData().get(n).getSequence(), false);
+        boolean favorable = this.getEvalData().get(n).favorable;
+
+        if (sow) {
+           result = favorable ? 20 : -12;
+        } else {
+            result = favorable ? -2 : -1;
+        }
+        return result;
+    }
+    public int evaluateAll() {
+        int result = 0;
+        int corrects = 0;
+        List<Integer> wrong = new LinkedList<>();
+        for (int i = 0; i < this.getEvalData().size(); i++) {
+            result += evaluate(i);
+            if (evaluate(i) == 20 || evaluate(i) == -1) {
+                corrects++;
+            } else {
+                wrong.add(i);
+            }
+        }
+        return corrects;
     }
 
 
