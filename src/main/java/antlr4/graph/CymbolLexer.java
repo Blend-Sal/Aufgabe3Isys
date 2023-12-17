@@ -1,4 +1,4 @@
-// Generated from Cymbol.g4 by ANTLR 4.13.1
+// Generated from Assembler.g4 by ANTLR 4.13.1
 
 package antlr4.graph;
 import java.util.*;
@@ -98,7 +98,7 @@ public class CymbolLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Cymbol.g4"; }
+	public String getGrammarFileName() { return "Assembler.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

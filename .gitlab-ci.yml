@@ -59,6 +59,11 @@ callGraphTest:
   stage: test
   script:
     - mvn -Dtest=graph.CallGraphTest test
+
+zwischenCodeTest:
+  stage: test
+  script:
+    -mvn -Dtest=cymbolTest.CymbolTest test
 #In2OutRunnable:
 #  stage: test
 #  script:

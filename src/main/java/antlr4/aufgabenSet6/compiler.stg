@@ -1,0 +1,165 @@
+file(globals,functionDecl) ::= <<
+.globals <globals>
+<functionDecl;separator="\n">
+
+>>
+
+functionDecl(id, args, locals, block) ::= <<
+.def <id>: args=<args>, locals=<locals>
+<block>
+>>
+
+block(stat) ::= <<
+<stat;separator="\n">
+>>
+
+assign(var,expr) ::= <<
+<expr>
+gstore r<expr.addr.index>, <var.index>
+>>
+
+localVar(var,expr) ::= <<
+<expr>
+move r<expr.addr.index>, r<var.index>
+>>
+
+ifSingle(bexpr,stat) ::= <<
+<bexpr>
+<bexpr.trueLabel>:
+<stat>
+<bexpr.falseLabel>:
+>>
+
+ifElse(bexpr,next,statTrue,statFalse) ::= <<
+<bexpr>
+<bexpr.trueLabel>:
+<statTrue>
+br <next>
+<bexpr.falseLabel>:
+<statFalse>
+<next>:
+>>
+
+for(bexpr,begin,assignInit,assignNext,stat) ::= <<
+<assignInit>
+<begin>:
+<bexpr>
+<bexpr.trueLabel>:
+<stat>
+<assignNext>
+br <begin>
+<bexpr.falseLabel>:
+>>
+
+while(bexpr,begin,stat) ::= <<
+<begin>:
+<bexpr>
+<bexpr.trueLabel>:
+<stat>
+br <begin>
+<bexpr.falseLabel>:
+>>
+
+return(expr,index) ::= <<
+<expr>
+move r<expr.addr.index>, r<index>
+ret
+>>
+
+argsNone(addr) ::= <<
+>>
+
+argsSingle(expr,addr) ::= <<
+<expr>
+>>
+
+args(expr,tempo,addr) ::= <<
+<expr;separator="\n">
+<expr,tempo:{e,t | move r<e.addr.index>, r<t.index>};separator="\n">
+>>
+
+print(expr) ::= <<
+<expr>
+print r<expr.addr.index>
+>>
+
+mulDiv(lexpr,rexpr,addr) ::= <<
+<lexpr>
+<rexpr>
+imul r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+>>
+
+add(lexpr,rexpr,addr) ::= <<
+<lexpr>
+<rexpr>
+iadd r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+>>
+
+sub(lexpr,rexpr,addr) ::= <<
+<lexpr>
+<rexpr>
+isub r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+>>
+
+varRef(var,addr) ::= <<
+gload r<addr.index>, <var.index>
+>>
+
+localVarRef(var,addr) ::= <<
+>>
+
+int(intValue,addr) ::= <<
+iconst r<addr.index>, <intValue>
+>>
+
+functionCall(function,args,addr) ::= <<
+<args>
+call <function.name>(), r<args.addr.index>
+move r0, r<addr.index>
+>>
+
+not(bexpr,trueLabel,falseLabel) ::= <<
+<bexpr>
+>>
+
+equals(lexpr,rexpr,trueLabel,falseLabel,addr) ::= <<
+<lexpr>
+<rexpr>
+ieq r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+brt r<addr.index>, <trueLabel>
+br <falseLabel>
+>>
+
+notEquals(lexpr,rexpr,trueLabel,falseLabel,addr) ::= <<
+<lexpr>
+<rexpr>
+ieq r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+brt r<addr.index>, <falseLabel>
+br <trueLabel>
+>>
+
+less(lexpr,rexpr,trueLabel,falseLabel,addr) ::= <<
+<lexpr>
+<rexpr>
+ilt r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+brt r<addr.index>, <trueLabel>
+br <falseLabel>
+>>
+
+greater(lexpr,rexpr,trueLabel,falseLabel,addr) ::= <<
+<lexpr>
+<rexpr>
+ilt r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+brt r<addr.index>, <falseLabel>
+ieq r<lexpr.addr.index>, r<rexpr.addr.index>, r<addr.index>
+brt r<addr.index>, <falseLabel>
+br <trueLabel>
+>>
+
+trueBoolean(trueLabel,falseLabel) ::= <<
+br <trueLabel>
+>>
+
+falseBoolean(trueLabel,falseLabel) ::= <<
+br <falseLabel>
+>>

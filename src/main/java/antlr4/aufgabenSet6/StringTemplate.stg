@@ -1,0 +1,3 @@
+mergeTemplates(templates) ::= <<<templates:{template | <template>}; separator="\n"> >>
+functionDecl(ID, formalParams, globals, block) ::= <<
+>>

@@ -1,0 +1,25 @@
+.globals 3
+.def main: args=0, locals=12
+iconst r1, 1
+gstore r1, 1
+iconst r2, 0
+gstore r2, 2
+l3:
+gload r3, 2
+iconst r4, 3
+ilt r3, r4, r5
+brt r5, l1
+br l2
+l1:
+iconst r6, 2
+gload r7, 1
+imul r6, r7, r8
+gstore r8, 1
+gload r9, 2
+iconst r10, 1
+iadd r9, r10, r11
+gstore r11, 2
+br l3
+l2:
+gload r12, 1
+print r12
