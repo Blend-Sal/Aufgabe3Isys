@@ -63,7 +63,7 @@ callGraphTest:
 zwischenCodeTest:
   stage: test
   script:
-    -mvn -Dtest=cymbolTest.CymbolTest test
+    - mvn -Dtest=cymbolTest.CymbolTest test
 #In2OutRunnable:
 #  stage: test
 #  script:
