@@ -1,7 +1,11 @@
+import freemarker.core.UnexpectedTypeException;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Die Learner Klasse beinhaltet die Lern- und Rechenlogik des Agenten.
+ */
 public class Learner {
     private final List<SensorData> trainData;
     private List<SensorData> evalData;
@@ -36,6 +40,11 @@ public class Learner {
         return data;
     }
 
+    /**
+     *
+     * @param dataList eine Liste mit den Daten für die Frequenztabelle
+     * @return eine Frequenztabelle aus der gegebenen dataList
+     */
     public static int[][] frequencyTable(List<SensorData> dataList) {
         int[][] frequencyTable = new int[3][3];
 
@@ -80,7 +89,7 @@ public class Learner {
 
 
                 } else {
-                    System.out.println("Problem");
+                    throw new IllegalStateException("Unexpected data entered the loop");
                 }
 
             }
@@ -99,6 +108,12 @@ public class Learner {
         return frequencyTable;
     }
 
+    /**
+     * Statische Methode zur Generierung einer Wahrscheinlichkeitsmatrix aus einer Frequenztabelle eines Learners
+     * @param learner das Learner Objekt, welches bereits trainiert werden muss.
+     * @param favorable entscheidung, ob die günstigen, oder die ungünstigen Werte für die Generierung genutzt werden.
+     * @return Wahrscheinlichkeitsmatrix
+     */
     public static double[][] probabilityTable(Learner learner, boolean favorable) {
         double[][] probabilityTable = new double[3][3];
         int[][] frequencyTable = favorable ? frequencyTable(learner.getGData()) : frequencyTable(learner.getUData());
@@ -113,6 +128,9 @@ public class Learner {
         return probabilityTable;
     }
 
+    /**
+     * Hilfsmethoden zur Darstellung von Tabellen aus Arrays
+     */
     public static String print3DTable(double[][] arr) {
 
         return String.format("[%.8f, %.8f, %.8f]%n[%.8f, %.8f, %.8f]%n[%.8f, %.8f, %.8f]", (arr[0][0]),  (arr[0][1]),  (arr[0][2]),  (arr[1][0]),  (arr[1][1]),  (arr[1][2]),  (arr[2][0]),  (arr[2][1]), arr[2][2]);
@@ -123,7 +141,14 @@ public class Learner {
         return String.format("[%d, %d, %d]%n[%d, %d, %d]%n[%d, %d, %d]", arr[0][0], arr[0][1], arr[0][2], arr[1][0], arr[1][1], arr[1][2], arr[2][0], arr[2][1], arr[2][2]);
     }
 
-    public double multiplyWithTable(List<String> sequence, boolean favorable) {
+    /**
+     * Methode zum Treffen einer Entscheidung des Agents.
+     * Normalerweise die Multiplikation von den Wahrscheinlichkeitswerten stattfinden,
+     * aber da die Werte so niedrig sind, benutzen wir die Summierung der natürlichen Algorithmen.
+     * @param sequence die zu bearbeitende Datensequenz.
+     * @return Summe aller Fälle
+     */
+    public double additionWithTable(List<String> sequence, boolean favorable) {
         double res = 0.0;
         double[][] table = probabilityTable(this, favorable);
         for (int i = 1; i < sequence.size(); i++) {
@@ -145,10 +170,16 @@ public class Learner {
         return res;
     }
 
+    /**
+     * Methode zur Evaluierung eines einzelnen Datensatzes.
+     * Hier wird angenommen, dass die Wahrscheinlichkeit einer günstigen Lage 10 % ist und einer nicht günstigen 90 %.
+     * @param n der Index des Datensatzes in der gegebenen evalData Liste.
+     * @return der Gewinn/Verlust aus dem Datensatz.
+     */
     public int evaluate(int n) {
         int result;
-        boolean sow = Math.log(0.1) + multiplyWithTable(this.getEvalData().get(n).getSequence(), true)
-                > Math.log(0.9) + multiplyWithTable(this.getEvalData().get(n).getSequence(), false);
+        boolean sow = Math.log(0.1) + additionWithTable(this.getEvalData().get(n).getSequence(), true)
+                > Math.log(0.9) + additionWithTable(this.getEvalData().get(n).getSequence(), false);
         boolean favorable = this.getEvalData().get(n).favorable;
 
         if (sow) {

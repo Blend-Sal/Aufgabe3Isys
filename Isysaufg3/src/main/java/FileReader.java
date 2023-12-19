@@ -17,13 +17,13 @@ public class FileReader extends java.io.FileReader {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                // Trennen Sie das Label und die Sequenz
+                // Trennen von Label und Sequenz
 
                 String[] parts = line.split(" +", 2);
                 String label = parts[0];
                 List<String> sequence = Arrays.asList(parts[1].split(" +"));
 
-                // Erstellen Sie ein neues SensorData-Objekt und fügen Sie es zur Liste hinzu
+                // neues SensorData-Objekt erstellen und zur Liste hinzufügen
                 SensorData data = SensorData.sensorData(label, sequence);
                 dataList.add(data);
             }
