@@ -1,5 +1,3 @@
-import freemarker.core.UnexpectedTypeException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +38,18 @@ public class Learner {
         return data;
     }
 
+    public static boolean containsZero(int[][] frequencyTable) {
+        for (int[] row : frequencyTable) {
+            for (int value : row) {
+                if (value == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
-     *
      * @param dataList eine Liste mit den Daten für die Frequenztabelle
      * @return eine Frequenztabelle aus der gegebenen dataList
      */
@@ -62,11 +70,11 @@ public class Learner {
         int hm = 0;
         int hn = 0;
         int hh = 0;
-        for (int i = 0; i < dataList.size(); i++) {
+        for (SensorData sensorData : dataList) {
 
-            for (int j = 0; j < dataList.get(i).getSequence().size() - 1; j++) {
-                String current = dataList.get(i).getSequence().get(j);
-                String next = dataList.get(i).getSequence().get(j + 1);
+            for (int j = 0; j < sensorData.getSequence().size() - 1; j++) {
+                String current = sensorData.getSequence().get(j);
+                String next = sensorData.getSequence().get(j + 1);
                 if (current.equals("m")) {
                     switch (next) {
                         case "m" -> mm++;
@@ -93,6 +101,13 @@ public class Learner {
                 }
 
             }
+            if (containsZero(frequencyTable)) {
+                for (int i = 0; i < frequencyTable.length; i++) {
+                    for (int j = 0; j < frequencyTable[i].length; j++) {
+                        frequencyTable[i][j]++;
+                    }
+                }
+            }
 
             frequencyTable[0][0] = mm;
             frequencyTable[0][1] = mn;
@@ -110,7 +125,8 @@ public class Learner {
 
     /**
      * Statische Methode zur Generierung einer Wahrscheinlichkeitsmatrix aus einer Frequenztabelle eines Learners
-     * @param learner das Learner Objekt, welches bereits trainiert werden muss.
+     *
+     * @param learner   das Learner Objekt, welches bereits trainiert werden muss.
      * @param favorable entscheidung, ob die günstigen, oder die ungünstigen Werte für die Generierung genutzt werden.
      * @return Wahrscheinlichkeitsmatrix
      */
@@ -133,7 +149,7 @@ public class Learner {
      */
     public static String print3DTable(double[][] arr) {
 
-        return String.format("[%.8f, %.8f, %.8f]%n[%.8f, %.8f, %.8f]%n[%.8f, %.8f, %.8f]", (arr[0][0]),  (arr[0][1]),  (arr[0][2]),  (arr[1][0]),  (arr[1][1]),  (arr[1][2]),  (arr[2][0]),  (arr[2][1]), arr[2][2]);
+        return String.format("[%.8f, %.8f, %.8f]%n[%.8f, %.8f, %.8f]%n[%.8f, %.8f, %.8f]", (arr[0][0]), (arr[0][1]), (arr[0][2]), (arr[1][0]), (arr[1][1]), (arr[1][2]), (arr[2][0]), (arr[2][1]), arr[2][2]);
     }
 
     public static String print3DTable(int[][] arr) {
@@ -145,6 +161,7 @@ public class Learner {
      * Methode zum Treffen einer Entscheidung des Agents.
      * Normalerweise die Multiplikation von den Wahrscheinlichkeitswerten stattfinden,
      * aber da die Werte so niedrig sind, benutzen wir die Summierung der natürlichen Algorithmen.
+     *
      * @param sequence die zu bearbeitende Datensequenz.
      * @return Summe aller Fälle
      */
@@ -153,13 +170,13 @@ public class Learner {
         double[][] table = probabilityTable(this, favorable);
         for (int i = 1; i < sequence.size(); i++) {
             int current = -1;
-            switch(sequence.get(i)) {
+            switch (sequence.get(i)) {
                 case "m" -> current = 0;
                 case "n" -> current = 1;
                 case "h" -> current = 2;
             }
             int last = -1;
-            switch(sequence.get(i - 1)) {
+            switch (sequence.get(i - 1)) {
                 case "m" -> last = 0;
                 case "n" -> last = 1;
                 case "h" -> last = 2;
@@ -173,6 +190,7 @@ public class Learner {
     /**
      * Methode zur Evaluierung eines einzelnen Datensatzes.
      * Hier wird angenommen, dass die Wahrscheinlichkeit einer günstigen Lage 10 % ist und einer nicht günstigen 90 %.
+     *
      * @param n der Index des Datensatzes in der gegebenen evalData Liste.
      * @return der Gewinn/Verlust aus dem Datensatz.
      */
@@ -183,12 +201,13 @@ public class Learner {
         boolean favorable = this.getEvalData().get(n).favorable;
 
         if (sow) {
-           result = favorable ? 20 : -12;
+            result = favorable ? 20 : -12;
         } else {
             result = favorable ? -2 : -1;
         }
         return result;
     }
+
     public String evaluateAll() {
         int result = 0;
         int corrects = 0;
@@ -200,6 +219,4 @@ public class Learner {
         }
         return String.format("Correct guesses: %d, Total profit: %d", corrects, result);
     }
-
-
 }
