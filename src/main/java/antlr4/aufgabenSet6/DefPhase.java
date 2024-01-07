@@ -19,7 +19,6 @@ public class DefPhase extends CymbolBaseListener {
     }
 
     public void exitFile(CymbolParser.FileContext ctx) {
-        System.out.println(globals);
     }
 
     public void enterFunctionDecl(CymbolParser.FunctionDeclContext ctx) {
@@ -38,7 +37,6 @@ public class DefPhase extends CymbolBaseListener {
     void saveScope(ParserRuleContext ctx, Scope s) { scopes.put(ctx, s); }
 
     public void exitFunctionDecl(CymbolParser.FunctionDeclContext ctx) {
-        System.out.println(currentScope);
         currentScope = currentScope.getEnclosingScope(); // pop scope
         currentFunction = null;
     }
@@ -50,7 +48,6 @@ public class DefPhase extends CymbolBaseListener {
     }
 
     public void exitBlock(CymbolParser.BlockContext ctx) {
-        System.out.println(currentScope);
         currentScope = currentScope.getEnclosingScope(); // pop scope
     }
 
