@@ -64,6 +64,11 @@ zwischenCodeTest:
   stage: test
   script:
     - mvn -Dtest=cymbolTest.CymbolTest test
+
+fsmlTest:
+  stage: test
+  script:
+    -mvn -Dtest=dslModel.FsmlTest test
 #In2OutRunnable:
 #  stage: test
 #  script:
