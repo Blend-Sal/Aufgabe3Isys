@@ -68,7 +68,7 @@ zwischenCodeTest:
 fsmlTest:
   stage: test
   script:
-    -mvn -Dtest=dslModel.FsmlTest test
+    - mvn -Dtest=dslModel.FsmlTest test
 #In2OutRunnable:
 #  stage: test
 #  script:
